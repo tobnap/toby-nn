@@ -1,0 +1,33 @@
+.art {
+    display: table;
+    border-spacing: 1px;
+    background-color: black;
+    border: 5px solid black;
+}
+
+.row {
+    display: table-row
+}
+
+.pixel {
+    display: table-cell;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+}
+
+.button {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+textarea {
+    height: 300px;
+    width: 784px;
+}
