@@ -18,4 +18,7 @@ class runface:
                 links = load("face/links.txt")
                 links = links.split('\n')
                 randlink = str(links[(random.randint(0,len(links)))-1])
-                return render.face(randlink)
+                randlink randlink.split('|')
+                imgurlink = randlink[0]
+                drivelink = randlink[0]
+                return render.face(imgurlink,drivelink)
