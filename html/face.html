@@ -334,6 +334,23 @@ function openMenu() {
 			y.className = y.className.replace(" w3-show", "");
 	}
 }
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == document.getElementById("saveModal")) {
+        hideAndResetModal();
+    }
+    if (event.target == document.getElementById("driveSaveModal")) {
+        resetDriveSaveModal();
+    }
+    if (event.target == document.getElementById("driveLoadModal")) {
+        resetDriveLoadModal();
+    }
+    if (event.target == document.getElementById("menuOverlay")) {
+        openMenu();
+    }
+    
+}
 </script>
 
 </body>
