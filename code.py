@@ -20,9 +20,6 @@ def notfound():
 
 app.notfound = notfound
 
-class icon:
-    def GET(self): raise web.seeother("/static/favicon.ico")
-
 class home:
     def GET(self):
         return render.home()
