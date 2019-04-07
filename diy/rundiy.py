@@ -42,16 +42,17 @@ class rundiy:
                 l1 = nonlin(np.dot(l0, w0))
                 # output layer
                 l2 = nonlin(np.dot(l1, w1))
+                l2 = l2.ravel()
                 answer = str
-                if np.array_equal(np.around(l2), [[1,0,0]]):
+                if np.array_equal(np.around(l2), [1,0,0]):
                         answer = 'Tree'
                     
-                elif np.array_equal(np.around(l2), [[0,1,0]]):
+                elif np.array_equal(np.around(l2), [0,1,0]):
                         answer = 'Square'
 
-                elif np.array_equal(np.around(l2), [[0,0,1]]):
+                elif np.array_equal(np.around(l2), [0,0,1]):
                         answer = 'Smile Face'
                 else:
                         answer = "I don't know"
-                    
+
                 return render.diy(answer,l2[0],l2[1],l2[2])

@@ -30,9 +30,9 @@ x = np.array([
 ])
 
 # KEY
-# [[1,0,0]] Tree
-# [[0,1,0]] Square
-# [[0,0,1]] Smile Face
+# [1,0,0] Tree
+# [0,1,0] Square
+# [0,0,1] Smile Face
 
 #output data
 y = np.array([[1,0,0],
