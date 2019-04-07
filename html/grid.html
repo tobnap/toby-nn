@@ -558,6 +558,14 @@ if (window.addEventListener) {
   window.addEventListener("load", showFrameSize);
 }
 
+function w3_getStyleValue(elmnt,style) {
+    if (window.getComputedStyle) {
+        return window.getComputedStyle(elmnt,null).getPropertyValue(style);
+    } else {
+        return elmnt.currentStyle[style];
+    }
+}
+
 function openMenu() {
   var x = document.getElementById("navbarDropMenu");
   var y = document.getElementById("menuOverlay");
