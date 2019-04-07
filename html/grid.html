@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="static/css/codemirror.css">
 <link rel="icon" type="image/x-icon" href="static/favicon.ico">
 <script src="static/js/codemirror.js"></script>
-<script src="static/js/codemirror_python.js"></script>
 <script src="static/js/jquery.min.js"></script>
 <script src="static/js/repo.js"></script>
 
@@ -23,7 +22,6 @@ if (window.addEventListener) {
     window.attachEvent("onresize", browserResize);
 }
 var xbeforeResize = window.innerWidth;
-
 function browserResize() {
     var afterResize = window.innerWidth;
     if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
@@ -59,7 +57,6 @@ function getSavedFile() {
     }
     httpA.send(paramA);   
 }
-
 function retheme() {
   var cc = document.body.className;
   if (cc.indexOf("darktheme") > -1) {
@@ -221,7 +218,6 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
 @media screen and (max-width: 727px) {
   .trytopnav {top:70px;}
   #container {top:108px;}
-
 }
 @media screen and (max-width: 467px) {
   .trytopnav {top:60px;}
@@ -234,7 +230,6 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
   .stack         {display:none;}
   #tryhome       {display:block;}
 }
-
 @font-face {
 font-family: 'fontawesome';
 src:url('./static/fonts/fontawesome.eot?14663396');
@@ -276,7 +271,6 @@ font-style:normal;
 #saveLoader {
     margin:20px;
 }
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -284,7 +278,6 @@ font-style:normal;
 #iframewrapper {
 	
 }
-
 body.darktheme {
   background-color:rgb(40, 44, 52);
 }
@@ -301,7 +294,6 @@ body.darktheme #container {
 body.darktheme .trytopnav a {
   color:#dddddd;
 }
-
 </style>
 <!--[if lt IE 8]>
 <style>
@@ -346,6 +338,78 @@ body.darktheme .trytopnav a {
 <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
   <div id="textareacontainer">
     <div id="textarea">
+		<div id="textareawrapper">
+			<textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false"><!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+
+    <script>
+        function setPixelColor(id) {
+            if (document.getElementById(id).style.backgroundColor == 'black') {
+                document.getElementById(id).style.backgroundColor = 'white';
+                document.getElementById(id).setAttribute("value", 0)
+            }
+            else {
+                document.getElementById(id).style.backgroundColor = 'black';
+                document.getElementById(id).setAttribute("value", 1)
+            }
+        }
+        function tableCreate() {
+            var artDiv = document.createElement('div');
+            artDiv.setAttribute('class', 'art');
+            for (var i = 0; i < 19; i++) {
+                var div = document.createElement('div');
+                div.setAttribute('class', 'row');
+                for (var j = 0; j < 19; j++) {
+                    var colDiv = document.createElement('div');
+                    colDiv.setAttribute('class', 'pixel');
+                    colDiv.id = "pixel-" + i + "-" + j;
+                    colDiv.setAttribute("value", 0)
+                    colDiv.setAttribute("onclick", "setPixelColor(this.id)");
+                    div.appendChild(colDiv);
+                }
+                artDiv.appendChild(div);
+            }
+            document.body.appendChild(artDiv);
+        }
+        tableCreate();
+        function showValues() {
+            var output = ""
+            for (var i = 0; i < 19; i++) {
+                for (var j = 0; j < 19; j++) {
+                    output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+                    if(!(i==18 && j==18)){
+                        output = output + ",";
+                    }
+                    
+                }
+            }
+            //console.log(output)
+            //Joshua Clinton was here. Mrs. Grubb PLZ GIVE JOSH AN F
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+
+	<form action="/run" method="POST" target="_top">
+		&lt;textarea readonly id="output" name="message" style="display:none">&lt;/textarea>
+		<button onClick="showValues()" type="submit" class="button">Click</button>
+	</form>
+
+	<form action="/save" method="POST" target="_top">
+		<button onClick="showValues()" type="submit" class="button">Save</button>
+		&lt;textarea readonly id="output" name="array" style="display:none">&lt;/textarea>
+		<input name="name"></input>
+	</form>
+
+&lt;/body>
+</html>
+</textarea>
+</div>
+
       <div id="textareawrapper">
 			<span>
 			<script type="text/javascript"> 
@@ -364,7 +428,6 @@ body.darktheme .trytopnav a {
 
 <script>
 submitTryit()
-
 function submitTryit(n) {
   if (window.editor) {
     window.editor.save();
@@ -541,7 +604,6 @@ if (window.addEventListener) {
   window.addEventListener("load", fixDragBtn);
   window.addEventListener("load", showFrameSize);
 }
-
 function colorcoding() {
   var ua = navigator.userAgent;
   //Opera Mini refreshes the page when trying to edit the textarea.
@@ -556,7 +618,6 @@ function colorcoding() {
 //  window.editor.on("change", function () {window.editor.save();});
 }
 colorcoding();
-
 function w3_getStyleValue(elmnt,style) {
     if (window.getComputedStyle) {
         return window.getComputedStyle(elmnt,null).getPropertyValue(style);
@@ -588,23 +649,6 @@ function openMenu() {
   } else { 
       y.className = y.className.replace(" w3-show", "");
   }
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == document.getElementById("saveModal")) {
-        hideAndResetModal();
-    }
-    if (event.target == document.getElementById("driveSaveModal")) {
-        resetDriveSaveModal();
-    }
-    if (event.target == document.getElementById("driveLoadModal")) {
-        resetDriveLoadModal();
-    }
-    if (event.target == document.getElementById("menuOverlay")) {
-        openMenu();
-    }
-    
 }
 </script>
 
