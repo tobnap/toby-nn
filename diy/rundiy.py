@@ -2,8 +2,8 @@
 import numpy as np
 import web
 
-w0 = np.loadtxt('w0',delimiter=',')
-w1 = np.loadtxt('w1',delimiter=',')
+w0 = np.loadtxt('diy.w0',delimiter=',')
+w1 = np.loadtxt('diy.w1',delimiter=',')
 
 #mycursor.execute("SELECT w0, w1 FROM weights")
 #myresult = mycursor.fetchall()
