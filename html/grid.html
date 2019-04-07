@@ -365,7 +365,7 @@ body.darktheme .trytopnav a {
 		}
 
 		function tableCreate() {
-				var artDiv = document.createElement('div');
+				var artDiv = document.getElementById('art');
 				artDiv.setAttribute('class', 'art');
 				for (var i = 0; i < 19; i++) {
 						var div = document.createElement('div');
@@ -399,6 +399,8 @@ body.darktheme .trytopnav a {
 				document.getElementById("output").innerHTML = output;
 		}
 		</script>
+		
+		<div id="art"></div>
 		
 		<form action="/run" method="POST" target="_top">
 			<textarea readonly id="output" name="message" style="display:none"></textarea>
