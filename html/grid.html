@@ -428,7 +428,7 @@ body.darktheme .trytopnav a {
 function moveRepoToContainer() {
 	var repo = document.getElementsByClassName("repo loaded");
 	var textareawrapper = document.getElementById("textareawrapper");
-	textareawrapper.append("repo");
+	textareawrapper.appendChild(repo);
 }
 moveRepoToContainer();
 
