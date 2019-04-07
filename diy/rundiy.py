@@ -1,8 +1,9 @@
 #import numpy to do math like squares and absolute values
 import numpy as np
 import web
-from diy.nn import w0
-from diy.nn import w1
+
+w0 = np.loadtxt('w0',delimiter=',')
+w1 = np.loadtxt('w1',delimiter=',')
 
 #mycursor.execute("SELECT w0, w1 FROM weights")
 #myresult = mycursor.fetchall()
