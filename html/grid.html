@@ -558,28 +558,6 @@ if (window.addEventListener) {
   window.addEventListener("load", showFrameSize);
 }
 
-function colorcoding() {
-  var ua = navigator.userAgent;
-  //Opera Mini refreshes the page when trying to edit the textarea.
-  if (ua && ua.toUpperCase().indexOf("OPERA MINI") > -1) { return false; }
-  window.editor = CodeMirror.fromTextArea(document.getElementById("textareaCode"), {
-    mode: "text/html",
-    htmlMode: true,
-    lineWrapping: true,
-    smartIndent: false,
-    addModeClass: true
-  });
-//  window.editor.on("change", function () {window.editor.save();});
-}
-colorcoding();
-
-function w3_getStyleValue(elmnt,style) {
-    if (window.getComputedStyle) {
-        return window.getComputedStyle(elmnt,null).getPropertyValue(style);
-    } else {
-        return elmnt.currentStyle[style];
-    }
-}
 function openMenu() {
   var x = document.getElementById("navbarDropMenu");
   var y = document.getElementById("menuOverlay");
