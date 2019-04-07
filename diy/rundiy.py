@@ -55,4 +55,4 @@ class rundiy:
                 else:
                         answer = "I don't know"
 
-                return render.diy(answer,l2[0],l2[1],l2[2])
+                return render.diy(answer,l2[0]*100,l2[1]*100,l2[2]*100)
