@@ -351,70 +351,70 @@ body.darktheme .trytopnav a {
 	<div id="iframecontainer">
 		<div id="iframe">
 			<div id="iframewrapper">
+				<div id="iframeResult">
+					<div id="artContainer"></div>
 		
-		<div id="artContainer"></div>
-		
-		<script>
-		function setPixelColor(id) {
-				if (document.getElementById(id).style.backgroundColor == 'black') {
-						document.getElementById(id).style.backgroundColor = 'white';
-						document.getElementById(id).setAttribute("value", 0)
-				}
-				else {
-						document.getElementById(id).style.backgroundColor = 'black';
-						document.getElementById(id).setAttribute("value", 1)
-				}
-		}
+					<script>
+					function setPixelColor(id) {
+							if (document.getElementById(id).style.backgroundColor == 'black') {
+									document.getElementById(id).style.backgroundColor = 'white';
+									document.getElementById(id).setAttribute("value", 0)
+							}
+							else {
+									document.getElementById(id).style.backgroundColor = 'black';
+									document.getElementById(id).setAttribute("value", 1)
+							}
+					}
 
-		function tableCreate() {
-				var artContainer = document.getElementById('artContainer');
-				var artDiv = document.createElement('div');
-				artDiv.setAttribute('class', 'art');
-				for (var i = 0; i < 19; i++) {
-						var div = document.createElement('div');
-						div.setAttribute('class', 'row');
-						for (var j = 0; j < 19; j++) {
-								var colDiv = document.createElement('div');
-								colDiv.setAttribute('class', 'pixel');
-								colDiv.id = "pixel-" + i + "-" + j;
-								colDiv.setAttribute("value", 0)
-								colDiv.setAttribute("onclick", "setPixelColor(this.id)");
-								div.appendChild(colDiv);
-						}
-						artDiv.appendChild(div);
-				}
-				artContainer.appendChild(artDiv);
-		}
-		tableCreate();
-		function showValues() {
-				var output = ""
-				for (var i = 0; i < 19; i++) {
-						for (var j = 0; j < 19; j++) {
-								output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-								if(!(i==18 && j==18)){
-										output = output + ",";
-								}
-								
-						}
-				}
-				//console.log(output)
-				//Joshua Clinton was here. Mrs. Grubb PLZ GIVE JOSH AN F
-				document.getElementById("output").innerHTML = output;
-		}
-		</script>
+					function tableCreate() {
+							var artContainer = document.getElementById('artContainer');
+							var artDiv = document.createElement('div');
+							artDiv.setAttribute('class', 'art');
+							for (var i = 0; i < 19; i++) {
+									var div = document.createElement('div');
+									div.setAttribute('class', 'row');
+									for (var j = 0; j < 19; j++) {
+											var colDiv = document.createElement('div');
+											colDiv.setAttribute('class', 'pixel');
+											colDiv.id = "pixel-" + i + "-" + j;
+											colDiv.setAttribute("value", 0)
+											colDiv.setAttribute("onclick", "setPixelColor(this.id)");
+											div.appendChild(colDiv);
+									}
+									artDiv.appendChild(div);
+							}
+							artContainer.appendChild(artDiv);
+					}
+					tableCreate();
+					function showValues() {
+							var output = ""
+							for (var i = 0; i < 19; i++) {
+									for (var j = 0; j < 19; j++) {
+											output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+											if(!(i==18 && j==18)){
+													output = output + ",";
+											}
+											
+									}
+							}
+							//console.log(output)
+							//Joshua Clinton was here. Mrs. Grubb PLZ GIVE JOSH AN F
+							document.getElementById("output").innerHTML = output;
+					}
+					</script>
 		
-		<form action="/run" method="POST" target="_top">
-			<textarea readonly id="output" name="message" style="display:none"></textarea>
-			<button onClick="showValues()" type="submit" class="button">Click</button>
-		</form>
+					<form action="/run" method="POST" target="_top">
+						<textarea readonly id="output" name="message" style="display:none"></textarea>
+						<button onClick="showValues()" type="submit" class="button">Click</button>
+					</form>
 
-		<form action="/save" method="POST" target="_top">
-			<button onClick="showValues()" type="submit" class="button">Save</button>
-			<textarea readonly id="output" name="array" style="display:none"></textarea>
-			<input name="name"></input>
-		</form>
-		
-		</div>
+					<form action="/save" method="POST" target="_top">
+						<button onClick="showValues()" type="submit" class="button">Save</button>
+						<textarea readonly id="output" name="array" style="display:none"></textarea>
+						<input name="name"></input>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -468,8 +468,8 @@ function restack(horizontal) {
 function showFrameSize() {
   var t;
   var width, height;
-  width = Number(w3_getStyleValue(document.getElementById("iframecontainer"), "width").replace("px", "")).toFixed();
-  height = Number(w3_getStyleValue(document.getElementById("iframecontainer"), "height").replace("px", "")).toFixed();
+  width = Number(w3_getStyleValue(document.getElementById("iframeResult"), "width").replace("px", "")).toFixed();
+  height = Number(w3_getStyleValue(document.getElementById("iframeResult"), "height").replace("px", "")).toFixed();
   document.getElementById("framesize").innerHTML = "Result Size: <span>" + width + " x " + height + "</span>";
 }
 var dragging = false;
