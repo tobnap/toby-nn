@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="static/css/codemirror.css">
 <link rel="icon" type="image/x-icon" href="static/favicon.ico">
 <script src="static/js/codemirror.js"></script>
+<script src="static/js/codemirror_python.js"></script>
 
 <script>
 if (window.addEventListener) {              
@@ -343,87 +344,11 @@ body.darktheme .trytopnav a {
   <div id="textareacontainer">
     <div id="textarea">
       <div id="textareawrapper">
-        <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false" readonly>
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="static/css/style.css">
-</head>
-
-<body>
-
-    <script>
-        function setPixelColor(id) {
-            if (document.getElementById(id).style.backgroundColor == 'black') {
-                document.getElementById(id).style.backgroundColor = 'white';
-                document.getElementById(id).setAttribute("value", 0)
-            }
-            else {
-                document.getElementById(id).style.backgroundColor = 'black';
-                document.getElementById(id).setAttribute("value", 1)
-            }
-        }
-
-        function tableCreate() {
-            var artDiv = document.createElement('div');
-            artDiv.setAttribute('class', 'art');
-            for (var i = 0; i < 19; i++) {
-                var div = document.createElement('div');
-                div.setAttribute('class', 'row');
-                for (var j = 0; j < 19; j++) {
-                    var colDiv = document.createElement('div');
-                    colDiv.setAttribute('class', 'pixel');
-                    colDiv.id = "pixel-" + i + "-" + j;
-                    colDiv.setAttribute("value", 0)
-                    colDiv.setAttribute("onclick", "setPixelColor(this.id)");
-                    div.appendChild(colDiv);
-                }
-                artDiv.appendChild(div);
-            }
-            document.body.appendChild(artDiv);
-        }
-        tableCreate();
-        function showValues() {
-            var output = ""
-            for (var i = 0; i < 19; i++) {
-                for (var j = 0; j < 19; j++) {
-                    output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-                    if(!(i==18 && j==18)){
-                        output = output + ",";
-                    }
-                    
-                }
-            }
-            //console.log(output)
-            //Joshua Clinton was here. Mrs. Grubb PLZ GIVE JOSH AN F
-            document.getElementById("output").innerHTML = output;
-        }
-    </script>
-	
-	<form action="/run" method="POST" target="_top">
-		&lt;textarea readonly id="output" name="message" style="display:none">&lt;/textarea>
-		<button onClick="showValues()" type="submit" class="button">Click</button>
-	</form>
-
-	<form action="/save" method="POST" target="_top">
-		<button onClick="showValues()" type="submit" class="button">Save</button>
-		&lt;textarea readonly id="output" name="array" style="display:none">&lt;/textarea>
-		<input name="name"></input>
-	</form>
-
-&lt;/body>
-</html>
-</textarea>
-
-<div class="w3-bar" style="overflow:auto">
-  <button class="w3-bar-item w3-button" onclick="openCity('London')">London</button>
-  <button class="w3-bar-item w3-button" onclick="openCity('Paris')">Paris</button>
-  <button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>
-</div>
-
-        <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
-          <input type="hidden" name="code" id="code" />
-        </form>
+			<span>
+			<script type="text/javascript"> 
+			$$('span').repo({ user: 'NVlabs', name: 'stylegan', branch: 'master' });
+			</script>
+			</span>
        </div>
     </div>
   </div>
