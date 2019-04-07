@@ -44,15 +44,14 @@ class rundiy:
                 l2 = nonlin(np.dot(l1, w1))
                 answer = str
                 if np.array_equal(np.around(l2), [[1,0,0]]):
-                    print('Tree')
-                    answer = 'Tree'
+                        answer = 'Tree'
                     
                 elif np.array_equal(np.around(l2), [[0,1,0]]):
-                    print('Square')
-                    answer = 'Square'
+                        answer = 'Square'
 
                 elif np.array_equal(np.around(l2), [[0,0,1]]):
-                    print('Smile Face')
-                    answer = 'Smile Face'
-                
-                return render.diy(answer)
+                        answer = 'Smile Face'
+                else:
+                        answer = "I don't know"
+                    
+                return render.diy(answer,l2[0],l2[1],l2[2])
