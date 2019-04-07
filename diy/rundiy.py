@@ -35,16 +35,24 @@ class rundiy:
                 message = user_data.message
                 message_array = message.split(',')
                 message_int = [int(x) for x in message_array]
-                # message_int = map(int, message_array)
-                print("message:" + str(message))
-                print("message_array:" + str(message_array))
-                print("message_int:" + str(message_int))
                 x = np.array([message_int])
-                print("x:" + str(x))
                 # input layer
                 l0 = x
                 # hidden layer
                 l1 = nonlin(np.dot(l0, w0))
                 # output layer
                 l2 = nonlin(np.dot(l1, w1))
-                return render.diy(l2)
+                answer = str
+                if np.array_equal(np.around(l2), [[1,0,0]]):
+                    print('Tree')
+                    answer = 'Tree'
+                    
+                elif np.array_equal(np.around(l2), [[0,1,0]]):
+                    print('Square')
+                    answer = 'Square'
+
+                elif np.array_equal(np.around(l2), [[0,0,1]]):
+                    print('Smile Face')
+                    answer = 'Smile Face'
+                
+                return render.diy(answer)
