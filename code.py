@@ -9,7 +9,6 @@ urls = ('/', 'home',
         '/music', 'music.runmusic.runmusic',
         '/save', 'save.save',
         '/list', 'listFiles',
-        '/repo', 'repo',
         '/favicon.ico', 'icon')
 
 app = web.application(urls, globals(), True)
@@ -28,10 +27,6 @@ class home:
 class grid:
     def GET(self):
         return render.grid()
-
-class repo:
-    def GET(self):
-        return render.repo()
 
 class listFiles:
     def GET(self):
