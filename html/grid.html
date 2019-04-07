@@ -425,6 +425,12 @@ body.darktheme .trytopnav a {
 </div>
 
 <script>
+function moveRepoToContainer() {
+	var repo = document.getElementsByClassName("repo loaded");
+	var textareawrapper = document.getElementById("textareawrapper");
+	textareawrapper.append("repo");
+}
+moveRepoToContainer();
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
