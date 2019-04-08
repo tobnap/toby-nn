@@ -8,8 +8,7 @@ urls = ('/', 'home',
         '/face', 'face.runface.runface',
         '/music', 'music.runmusic.runmusic',
         '/save', 'save.save',
-        '/list', 'listFiles',
-        '/favicon.ico', 'icon')
+        '/list', 'listFiles')
 
 app = web.application(urls, globals(), True)
 
