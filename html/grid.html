@@ -289,10 +289,14 @@ body.darktheme .trytopnav a {
 }
 .repo {
 height:100%!important;
-overflow-y:scroll!important;
+margin:0 0 0 0!important;
+//overflow-y:visible!important;
 }
 pre[class*="language-"] {
-overflow-x:scroll!important;
+overflow:auto!important;
+}
+.repo li {
+border-bottom:1px solid #eaecef!important;
 }
 .repo li.titles {
 background:#f1f8ff!important;
@@ -304,6 +308,9 @@ font-size:14px!important;
 }
 .repo li a, .repo li a:visited, .repo li a:active {
 color:#0366d6!important;
+}
+.repo li.titles:before, .repo li.back:before {
+background-image:none!important;
 }
 .repo li.dir:before {
 background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgd2lkdGg9IjAuODhlbSIgaGVpZ2h0PSIxZW0iIHN0eWxlPSItbXMtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDE0IDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMyA0SDdWM2MwLS42Ni0uMzEtMS0xLTFIMWMtLjU1IDAtMSAuNDUtMSAxdjEwYzAgLjU1LjQ1IDEgMSAxaDEyYy41NSAwIDEtLjQ1IDEtMVY1YzAtLjU1LS40NS0xLTEtMXpNNiA0SDFWM2g1djF6IiBmaWxsPSIjNjI2MjYyIi8+PC9zdmc+")!important;
@@ -319,6 +326,7 @@ color:#0366d6!important;
 }
 .repo .page {
 background:#ffffff!important;
+border:1px solid #dfe2e5!important;
 }
 </style>
 <!--[if lt IE 8]>
