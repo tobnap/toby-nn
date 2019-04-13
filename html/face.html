@@ -292,7 +292,47 @@ body.darktheme #container {
 body.darktheme .trytopnav a {
 	color:#dddddd;
 }
-
+.repo {
+height:100%!important;
+margin:0 0 0 0!important;
+//overflow-y:visible!important;
+}
+pre[class*="language-"] {
+overflow:auto!important;
+}
+.repo li {
+border-bottom:1px solid #eaecef!important;
+}
+.repo li.titles {
+background:#f1f8ff!important;
+}
+.repo ul * {
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol!important;
+line-height:17px!important;
+font-size:14px!important;
+}
+.repo li a, .repo li a:visited, .repo li a:active {
+color:#0366d6!important;
+}
+.repo li.titles:before, .repo li.back:before {
+background-image:none!important;
+}
+.repo li.dir:before {
+background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgd2lkdGg9IjAuODhlbSIgaGVpZ2h0PSIxZW0iIHN0eWxlPSItbXMtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDE0IDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMyA0SDdWM2MwLS42Ni0uMzEtMS0xLTFIMWMtLjU1IDAtMSAuNDUtMSAxdjEwYzAgLjU1LjQ1IDEgMSAxaDEyYy41NSAwIDEtLjQ1IDEtMVY1YzAtLjU1LS40NS0xLTEtMXpNNiA0SDFWM2g1djF6IiBmaWxsPSIjNjI2MjYyIi8+PC9zdmc+")!important;
+}
+.repo li:before {
+background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgd2lkdGg9IjAuNzVlbSIgaGVpZ2h0PSIxZW0iIHN0eWxlPSItbXMtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02IDVIMlY0aDR2MXpNMiA4aDdWN0gydjF6bTAgMmg3VjlIMnYxem0wIDJoN3YtMUgydjF6bTEwLTcuNVYxNGMwIC41NS0uNDUgMS0xIDFIMWMtLjU1IDAtMS0uNDUtMS0xVjJjMC0uNTUuNDUtMSAxLTFoNy41TDEyIDQuNXpNMTEgNUw4IDJIMXYxMmgxMFY1eiIgZmlsbD0iIzYyNjI2MiIvPjwvc3ZnPg==")!important;
+}
+.repo h1 {
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol!important;
+}
+.repo h1 a, .repo h1 a:active, .repo h1 a:visited, .repo h1 a:hover {
+color:#0366d6!important;
+}
+.repo .page {
+background:#ffffff!important;
+border:1px solid #dfe2e5!important;
+}
 </style>
 <!--[if lt IE 8]>
 <style>
@@ -353,7 +393,7 @@ body.darktheme .trytopnav a {
 </div>
 
 <script>
-$$('body').repo({ user: 'NVlabs', name: 'stylegan', branch: 'master' });
+$$('#textareawrapper').repo({ user: 'jakeypaulyguyy', name: 'stylegan', branch: 'master' });
 
 var currentStack=true;
 if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") {restack(true);}
