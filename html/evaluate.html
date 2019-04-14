@@ -1,6 +1,6 @@
 <html lang="en-US">
 <head>
-<title>DIY Neural Network</title>
+<title>DIY Neural Network Evaluator</title>
 <meta name="viewport" content="width=device-width">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:image:type" content="image/png">
@@ -359,7 +359,8 @@ border:1px solid #dfe2e5!important;
 				<span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent w3-hover-dark-grey" title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;">&times;</span>
 					<div class="w3-bar-block">
 						<a class="w3-bar-item w3-button" title="Go to home page" onclick="location.href='/'"><i class="fa fa-home" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Home</span></a>
-						<a class="w3-bar-item w3-button" title="Go to grid page" onclick="location.href='/grid'"><i class="fa fa-grid" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Grid</span></a>
+						<a class="w3-bar-item w3-button" title="Go to grid page" onclick="location.href='/evaluate'"><i class="fa fa-evaluate" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Evaluate</span></a>
+						<a class="w3-bar-item w3-button" title="Go to grid page" onclick="location.href='/train'"><i class="fa fa-train" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Train</span></a>
 						<a class="w3-bar-item w3-button" title="Go to novel writing page" onclick="location.href='/text'"><i class="fa fa-document" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Neural Novelist</span></a>
 						<a class="w3-bar-item w3-button" title="Go to neural network generated faces page" onclick="location.href='/face'"><i class="fa fa-face" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Fake Faces</span></a>
 						<a class="w3-bar-item w3-button" title="Go to neural network composed music" onclick="location.href='/music'"><i class="fa fa-music" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Neural Composer</span></a>
@@ -430,7 +431,7 @@ border:1px solid #dfe2e5!important;
 					}
 					</script>
 		
-					<form action="/run" method="POST" target="_top">
+					<form action="/evaluate" method="POST" target="_top">
 						<textarea readonly id="output" name="message" style="display:none"></textarea>
 						<button onClick="showValues()" type="submit" class="button">Click</button>
 					</form>

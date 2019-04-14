@@ -2,8 +2,10 @@ import web
 import os
 
 urls = ('/', 'home',
-        '/grid', 'grid',
-        '/run', 'diy.rundiy.rundiy',
+        '/evaluate', 'evaluate',
+        '/train', 'train',
+        '/evaluate', 'diy.evaluate.evaluate',
+        '/train', 'diy.train.train',
         '/text', 'text.runtext.runtext',
         '/face', 'face.runface.runface',
         '/music', 'music.runmusic.runmusic',
@@ -23,9 +25,13 @@ class home:
     def GET(self):
         return render.home()
 
-class grid:
+class evaluate:
     def GET(self):
-        return render.grid()
+        return render.evaluate()
+
+class train:
+    def GET(self):
+        return render.train()
 
 class listFiles:
     def GET(self):
