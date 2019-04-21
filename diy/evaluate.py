@@ -10,6 +10,7 @@ class evaluate:
         mycursor = mydb.cursor()
         mycursor.execute("SELECT `index`, name1, name2 FROM weights")
         names = mycursor.fetchall()
+        mycursor.close()
         models = []
         for row in names :
             models.append((row[0], row[1] + row[2]))

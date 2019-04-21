@@ -116,4 +116,3 @@ class nn:
         mydb.commit()
         
         mycursor.close()
-        mydb.close()
