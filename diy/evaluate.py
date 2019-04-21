@@ -13,16 +13,12 @@ class evaluate:
         mycursor.close()
         models = []
         for row in names :
-            models.append((row[0], row[1] + row[2]))
+            models.append((row[0], row[1] + ' and ' + row[2]))
             print(row[0], row[1], row[2])
 
         print(models)
         myform = form.Form( 
-            form.Dropdown('Models', models))
+            form.Dropdown('Model', models))
 
         form = myform()
         return render.evaluate(form)
-    
-    #def GET(self):
-    #    modelsList = [[22,"name 1", "name 2"] ,[25, "name 3", "name 4"]]
-    #    return render.evaluate(modelsList)
