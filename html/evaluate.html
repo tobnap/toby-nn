@@ -1,3 +1,4 @@
+$def with (evaluateForm)
 <html lang="en-US">
 <head>
 <title>DIY Neural Network Evaluator</title>
@@ -381,59 +382,11 @@ border:1px solid #dfe2e5!important;
 			<div id="iframewrapper">
 				<div id="iframeResult" style="padding:5px;">
 					<div id="artContainer"></div>
-		
-					<script>
-					function setPixelColor(id) {
-							if (document.getElementById(id).style.backgroundColor == 'black') {
-									document.getElementById(id).style.backgroundColor = 'white';
-									document.getElementById(id).setAttribute("value", 0)
-							}
-							else {
-									document.getElementById(id).style.backgroundColor = 'black';
-									document.getElementById(id).setAttribute("value", 1)
-							}
-					}
-
-					function tableCreate() {
-							var artContainer = document.getElementById('artContainer');
-							var artDiv = document.createElement('div');
-							artDiv.setAttribute('class', 'art');
-							for (var i = 0; i < 19; i++) {
-									var div = document.createElement('div');
-									div.setAttribute('class', 'row');
-									for (var j = 0; j < 19; j++) {
-											var colDiv = document.createElement('div');
-											colDiv.setAttribute('class', 'pixel');
-											colDiv.id = "pixel-" + i + "-" + j;
-											colDiv.setAttribute("value", 0)
-											colDiv.setAttribute("onclick", "setPixelColor(this.id)");
-											div.appendChild(colDiv);
-									}
-									artDiv.appendChild(div);
-							}
-							artContainer.appendChild(artDiv);
-					}
-					tableCreate();
-					function showValues() {
-							var output = ""
-							for (var i = 0; i < 19; i++) {
-									for (var j = 0; j < 19; j++) {
-											output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-											if(!(i==18 && j==18)){
-													output = output + ",";
-											}
-											
-									}
-							}
-							//console.log(output)
-							//Joshua Clinton was here. Mrs. Grubb PLZ GIVE JOSH AN F
-							document.getElementById("output").innerHTML = output;
-					}
-					</script>
-		
-					<form action="/run" method="POST" target="_top">
+					<form name="main" action="/run" method="POST" target="_top">
 						<textarea readonly id="output" name="message" style="display:none"></textarea>
 						<button onClick="showValues()" type="submit" class="button">Click</button>
+						$if not evaluateForm.valid: <p class="error">Try again, AmeriCAN:</p>
+						$:evaluateForm.render()
 					</form>
 				</div>
 			</div>
@@ -442,6 +395,53 @@ border:1px solid #dfe2e5!important;
 </div>
 <script>
 $$('#textareawrapper').repo({ user: 'jakeypaulyguyy', name: 'DIY-Neural-Network-Evaluate', branch: 'master' });
+function setPixelColor(id) {
+	if (document.getElementById(id).style.backgroundColor == 'black') {
+			document.getElementById(id).style.backgroundColor = 'white';
+			document.getElementById(id).setAttribute("value", 0)
+	}
+	else {
+			document.getElementById(id).style.backgroundColor = 'black';
+			document.getElementById(id).setAttribute("value", 1)
+	}
+}
+
+function tableCreate() {
+	var artContainer = document.getElementById('artContainer');
+	var artDiv = document.createElement('div');
+	artDiv.setAttribute('class', 'art');
+	for (var i = 0; i < 19; i++) {
+			var div = document.createElement('div');
+			div.setAttribute('class', 'row');
+			for (var j = 0; j < 19; j++) {
+					var colDiv = document.createElement('div');
+					colDiv.setAttribute('class', 'pixel');
+					colDiv.id = "pixel-" + i + "-" + j;
+					colDiv.setAttribute("value", 0)
+					colDiv.setAttribute("onclick", "setPixelColor(this.id)");
+					div.appendChild(colDiv);
+			}
+			artDiv.appendChild(div);
+	}
+artContainer.appendChild(artDiv);
+}
+tableCreate();
+function showValues() {
+	var output = ""
+	for (var i = 0; i < 19; i++) {
+			for (var j = 0; j < 19; j++) {
+					output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+					if(!(i==18 && j==18)){
+							output = output + ",";
+					}
+					
+			}
+	}
+	console.log(output)
+	document.getElementById("output").innerHTML = output;
+}
+
+// var models = [[22,"name 1", "name 2"] ,[25, "name 3", "name 4"]];
 
 var currentStack=true;
 if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") {restack(true);}

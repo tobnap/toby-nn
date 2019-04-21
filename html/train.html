@@ -380,18 +380,152 @@ border:1px solid #dfe2e5!important;
 		<div id="iframe">
 			<div id="iframewrapper">
 				<div id="iframeResult" style="padding:5px;">
-					<div id="artContainer"></div>
-		
+					<style>
+					#regForm {
+						background-color: #ffffff;
+						margin: 100px auto;
+						font-family: Raleway;
+						padding: 40px;
+						width: 70%;
+						min-width: 300px;
+					}
+
+					.tab {
+						display: none;
+					}
+					</style>
+
+					<form id="regForm" action="/nn" method="POST" target="_top">
+						<h1>Register:</h1>
+						<!-- One "tab" for each step in the form: -->
+						<div class="tab">First Object:
+						<p><input placeholder="Name #1" oninput="this.className = ''" name="name1" id="name1"></p>
+						</div>
+						<div class="tab">Second Object:
+						<p><input placeholder="Name #2" oninput="this.className = ''" name="name2" id="name2"></p>
+						</div>
+						<div class="tab"><div id="object"></div>
+						<span id="name"></span>
+						<span id="counter"></span>
+						<div id="artContainer"></div>
+						<input type="hidden" name="name1Objs" id="name1Objs"></input>
+						<input type="hidden" name="name2Objs" id="name2Objs"></input>
+						</div>
+						<div style="overflow:auto;">
+						<div style="float:right;">
+							<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+						</div>
+						</div>
+					</form>
+
 					<script>
+					var currentTab = 0; // Current tab is set to be the first tab (0)
+					var objCounter = 1; // How many objects they have drawn
+					var name1Objs = []; // Array of name1 objects
+					var name2Objs = []; // Array of name2 objects
+					showTab(currentTab); // Display the current tab
+
+					function showTab(n) {
+						// This function will display the specified tab of the form...
+						var x = document.getElementsByClassName("tab");
+						x[n].style.display = "block";
+						if (n == (x.length - 1)) {
+						//document.getElementById("nextBtn").innerHTML = "Submit";
+						document.getElementById("name").innerHTML = document.getElementById("name1").value;
+						} else {
+						document.getElementById("nextBtn").innerHTML = "Next";
+						}
+					}
+
+					function nextPrev(n) {
+						// This function will figure out which tab to display
+						var x = document.getElementsByClassName("tab");
+						if (currentTab >= (x.length-1)) {
+							// ... the form gets submitted:
+							//document.getElementById("regForm").submit();
+							savePixelColor();
+							resetPixelColor();
+							if (objCounter > 5) {
+								document.getElementById("name").innerHTML = document.getElementById("name2").value;
+							}
+							return false;
+						}
+						else {
+							// Exit the function if any field in the current tab is invalid:
+							if (n == 1 && !validateForm()) return false;
+							// Hide the current tab:
+							x[currentTab].style.display = "none";
+							// Increase or decrease the current tab by 1:
+							currentTab = currentTab + n;
+							// Otherwise, display the correct tab:
+							showTab(currentTab);
+						}
+					}
+
+					function validateForm() {
+						// This function deals with validation of the form fields
+						var x, y, i, valid = true;
+						x = document.getElementsByClassName("tab");
+						y = x[currentTab].getElementsByTagName("input");
+						// A loop that checks every input field in the current tab:
+						for (i = 0; i < y.length; i++) {
+						// If a field is empty...
+						if (y[i].value == "") {
+							// add an "invalid" class to the field:
+							y[i].className += " invalid";
+							// and set the current valid status to false
+							valid = false;
+						}
+						}
+						return valid; // return the valid status
+					}
 					function setPixelColor(id) {
-							if (document.getElementById(id).style.backgroundColor == 'black') {
-									document.getElementById(id).style.backgroundColor = 'white';
-									document.getElementById(id).setAttribute("value", 0)
+						if (document.getElementById(id).style.backgroundColor == 'black') {
+							document.getElementById(id).style.backgroundColor = 'white';
+							document.getElementById(id).setAttribute("value", 0);
+						}
+						else {
+							document.getElementById(id).style.backgroundColor = 'black';
+							document.getElementById(id).setAttribute("value", 1);
+						}
+					}
+					
+					function savePixelColor() {
+						// var output = ""
+						var output = [];
+						for (var i = 0; i < 19; i++) {
+							for (var j = 0; j < 19; j++) {
+								// output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+								var val = document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+								output.push(val);
+								if(!(i==18 && j==18)){
+									// output = output + ",";
+								}		
 							}
-							else {
-									document.getElementById(id).style.backgroundColor = 'black';
-									document.getElementById(id).setAttribute("value", 1)
-							}
+						}
+						if (objCounter <= 5) {
+								name1Objs.push(output);
+						}
+						else if(objCounter < 10) {
+							name2Objs.push(output);
+						}
+						else {
+							name2Objs.push(output);
+							document.getElementById("name1Objs").value = JSON.stringify(name1Objs);
+							document.getElementById("name2Objs").value = JSON.stringify(name2Objs);
+							document.getElementById("regForm").submit();
+							console.log(name1Objs);
+							console.log(name2Objs);
+						}
+						document.getElementById("counter").innerHTML = objCounter++;
+					}
+					
+					function resetPixelColor() {
+						var els = document.getElementsByClassName("pixel")
+						Array.prototype.forEach.call(els, function(el) {
+							el.style.backgroundColor = 'white';
+							el.setAttribute("value", 0);
+						});
 					}
 
 					function tableCreate() {
@@ -411,16 +545,19 @@ border:1px solid #dfe2e5!important;
 									}
 									artDiv.appendChild(div);
 							}
-							artContainer.appendChild(artDiv);
+						artContainer.appendChild(artDiv);
 					}
 					tableCreate();
 					function showValues() {
-							var output = ""
+							// var output = ""
+							var output = [];
 							for (var i = 0; i < 19; i++) {
 									for (var j = 0; j < 19; j++) {
-											output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+											// output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+											val = document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
 											if(!(i==18 && j==18)){
-													output = output + ",";
+													// output = output + ",";
+													output.push(val);
 											}
 											
 									}
@@ -430,11 +567,6 @@ border:1px solid #dfe2e5!important;
 							document.getElementById("output").innerHTML = output;
 					}
 					</script>
-		
-					<form action="/nn" method="POST" target="_top">
-						<textarea readonly id="output" name="message" style="display:none"></textarea>
-						<button onClick="showValues()" type="submit" class="button">Click</button>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -446,187 +578,187 @@ $$('#textareawrapper').repo({ user: 'jakeypaulyguyy', name: 'DIY-Neural-Network-
 var currentStack=true;
 if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") {restack(true);}
 function restack(horizontal) {
-    var tc, ic, t, i, c, f, sv, sh, d, height, flt, width;
-    tc = document.getElementById("textareacontainer");
-    ic = document.getElementById("iframecontainer");
-    t = document.getElementById("textarea");
-    i = document.getElementById("iframe");
-    c = document.getElementById("container");    
-    sv = document.getElementById("stackV");
-    sh = document.getElementById("stackH");
-    tc.className = tc.className.replace("horizontal", "");
-    ic.className = ic.className.replace("horizontal", "");        
-    t.className = t.className.replace("horizontal", "");        
-    i.className = i.className.replace("horizontal", "");        
-    c.className = c.className.replace("horizontal", "");                        
-    if (sv) {sv.className = sv.className.replace("horizontal", "")};
-    if (sv) {sh.className = sh.className.replace("horizontal", "")};
-    stack = "";
-    if (horizontal) {
-        tc.className = tc.className + " horizontal";
-        ic.className = ic.className + " horizontal";        
-        t.className = t.className + " horizontal";        
-        i.className = i.className + " horizontal";                
-        c.className = c.className + " horizontal";                
-        if (sv) {sv.className = sv.className + " horizontal"};
-        if (sv) {sh.className = sh.className + " horizontal"};
-        stack = " horizontal";
-        document.getElementById("textareacontainer").style.height = "50%";
-        document.getElementById("iframecontainer").style.height = "50%";
-        document.getElementById("textareacontainer").style.width = "100%";
-        document.getElementById("iframecontainer").style.width = "100%";
-        currentStack=false;
-    } else {
-        document.getElementById("textareacontainer").style.height = "100%";
-        document.getElementById("iframecontainer").style.height = "100%";
-        document.getElementById("textareacontainer").style.width = "50%";
-        document.getElementById("iframecontainer").style.width = "50%";
-        currentStack=true;        
-    }
-    fixDragBtn();
-    showFrameSize();
+		var tc, ic, t, i, c, f, sv, sh, d, height, flt, width;
+		tc = document.getElementById("textareacontainer");
+		ic = document.getElementById("iframecontainer");
+		t = document.getElementById("textarea");
+		i = document.getElementById("iframe");
+		c = document.getElementById("container");		
+		sv = document.getElementById("stackV");
+		sh = document.getElementById("stackH");
+		tc.className = tc.className.replace("horizontal", "");
+		ic.className = ic.className.replace("horizontal", "");				
+		t.className = t.className.replace("horizontal", "");				
+		i.className = i.className.replace("horizontal", "");				
+		c.className = c.className.replace("horizontal", "");												
+		if (sv) {sv.className = sv.className.replace("horizontal", "")};
+		if (sv) {sh.className = sh.className.replace("horizontal", "")};
+		stack = "";
+		if (horizontal) {
+				tc.className = tc.className + " horizontal";
+				ic.className = ic.className + " horizontal";				
+				t.className = t.className + " horizontal";				
+				i.className = i.className + " horizontal";								
+				c.className = c.className + " horizontal";								
+				if (sv) {sv.className = sv.className + " horizontal"};
+				if (sv) {sh.className = sh.className + " horizontal"};
+				stack = " horizontal";
+				document.getElementById("textareacontainer").style.height = "50%";
+				document.getElementById("iframecontainer").style.height = "50%";
+				document.getElementById("textareacontainer").style.width = "100%";
+				document.getElementById("iframecontainer").style.width = "100%";
+				currentStack=false;
+		} else {
+				document.getElementById("textareacontainer").style.height = "100%";
+				document.getElementById("iframecontainer").style.height = "100%";
+				document.getElementById("textareacontainer").style.width = "50%";
+				document.getElementById("iframecontainer").style.width = "50%";
+				currentStack=true;				
+		}
+		fixDragBtn();
+		showFrameSize();
 }
 function showFrameSize() {
-  var t;
-  var width, height;
-  width = Number(w3_getStyleValue(document.getElementById("iframeResult"), "width").replace("px", "")).toFixed();
-  height = Number(w3_getStyleValue(document.getElementById("iframeResult"), "height").replace("px", "")).toFixed();
-  document.getElementById("framesize").innerHTML = "Result Size: <span>" + width + " x " + height + "</span>";
+	var t;
+	var width, height;
+	width = Number(w3_getStyleValue(document.getElementById("iframeResult"), "width").replace("px", "")).toFixed();
+	height = Number(w3_getStyleValue(document.getElementById("iframeResult"), "height").replace("px", "")).toFixed();
+	document.getElementById("framesize").innerHTML = "Result Size: <span>" + width + " x " + height + "</span>";
 }
 var dragging = false;
 var stack;
 function fixDragBtn() {
-  var textareawidth, leftpadding, dragleft, containertop, buttonwidth
-  var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
-  if (stack != " horizontal") {
-    document.getElementById("dragbar").style.width = "5px";    
-    textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
-    leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
-    buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
-    textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
-    dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
-    document.getElementById("dragbar").style.top = containertop + "px";
-    document.getElementById("dragbar").style.left = dragleft + "px";
-    document.getElementById("dragbar").style.height = textareaheight;
-    document.getElementById("dragbar").style.cursor = "col-resize";
-    
-  } else {
-    document.getElementById("dragbar").style.height = "5px";
-    if (window.getComputedStyle) {
-        textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("height");
-        textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("width");
-        leftpadding = window.getComputedStyle(document.getElementById("textarea"),null).getPropertyValue("padding-top");
-        buttonwidth = window.getComputedStyle(document.getElementById("dragbar"),null).getPropertyValue("height");
-    } else {
-        dragleft = document.getElementById("textareawrapper").currentStyle["width"];
-    }
-    textareawidth = Number(textareawidth.replace("px", ""));
-    leftpadding = Number(leftpadding .replace("px", ""));
-    buttonwidth = Number(buttonwidth .replace("px", ""));
-    dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
-    document.getElementById("dragbar").style.top = dragleft + "px";
-    document.getElementById("dragbar").style.left = "5px";
-    document.getElementById("dragbar").style.width = textareaheight;
-    document.getElementById("dragbar").style.cursor = "row-resize";        
-  }
+	var textareawidth, leftpadding, dragleft, containertop, buttonwidth
+	var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
+	if (stack != " horizontal") {
+		document.getElementById("dragbar").style.width = "5px";		
+		textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
+		leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
+		buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
+		textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
+		dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
+		document.getElementById("dragbar").style.top = containertop + "px";
+		document.getElementById("dragbar").style.left = dragleft + "px";
+		document.getElementById("dragbar").style.height = textareaheight;
+		document.getElementById("dragbar").style.cursor = "col-resize";
+		
+	} else {
+		document.getElementById("dragbar").style.height = "5px";
+		if (window.getComputedStyle) {
+				textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("height");
+				textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("width");
+				leftpadding = window.getComputedStyle(document.getElementById("textarea"),null).getPropertyValue("padding-top");
+				buttonwidth = window.getComputedStyle(document.getElementById("dragbar"),null).getPropertyValue("height");
+		} else {
+				dragleft = document.getElementById("textareawrapper").currentStyle["width"];
+		}
+		textareawidth = Number(textareawidth.replace("px", ""));
+		leftpadding = Number(leftpadding .replace("px", ""));
+		buttonwidth = Number(buttonwidth .replace("px", ""));
+		dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
+		document.getElementById("dragbar").style.top = dragleft + "px";
+		document.getElementById("dragbar").style.left = "5px";
+		document.getElementById("dragbar").style.width = textareaheight;
+		document.getElementById("dragbar").style.cursor = "row-resize";				
+	}
 }
 function dragstart(e) {
-  e.preventDefault();
-  dragging = true;
-  var main = document.getElementById("iframecontainer");
+	e.preventDefault();
+	dragging = true;
+	var main = document.getElementById("iframecontainer");
 }
 function dragmove(e) {
-  if (dragging) 
-  {
-    document.getElementById("shield").style.display = "block";
-    if (stack != " horizontal") {
-      var percentage = (e.pageX / window.innerWidth) * 100;
-      if (percentage > 5 && percentage < 98) {
-        var mainPercentage = 100-percentage;
-        document.getElementById("textareacontainer").style.width = percentage + "%";
-        document.getElementById("iframecontainer").style.width = mainPercentage + "%";
-        fixDragBtn();
-      }
-    } else {
-      var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
-      var percentage = ((e.pageY - containertop + 20) / (window.innerHeight - containertop + 20)) * 100;
-      if (percentage > 5 && percentage < 98) {
-        var mainPercentage = 100-percentage;
-        document.getElementById("textareacontainer").style.height = percentage + "%";
-        document.getElementById("iframecontainer").style.height = mainPercentage + "%";
-        fixDragBtn();
-      }
-    }
-    showFrameSize();    
-  }
+	if (dragging) 
+	{
+		document.getElementById("shield").style.display = "block";
+		if (stack != " horizontal") {
+			var percentage = (e.pageX / window.innerWidth) * 100;
+			if (percentage > 5 && percentage < 98) {
+				var mainPercentage = 100-percentage;
+				document.getElementById("textareacontainer").style.width = percentage + "%";
+				document.getElementById("iframecontainer").style.width = mainPercentage + "%";
+				fixDragBtn();
+			}
+		} else {
+			var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
+			var percentage = ((e.pageY - containertop + 20) / (window.innerHeight - containertop + 20)) * 100;
+			if (percentage > 5 && percentage < 98) {
+				var mainPercentage = 100-percentage;
+				document.getElementById("textareacontainer").style.height = percentage + "%";
+				document.getElementById("iframecontainer").style.height = mainPercentage + "%";
+				fixDragBtn();
+			}
+		}
+		showFrameSize();		
+	}
 }
 function dragend() {
-  document.getElementById("shield").style.display = "none";
-  dragging = false;
-  if (window.editor) {
-    window.editor.refresh();
-  }
+	document.getElementById("shield").style.display = "none";
+	dragging = false;
+	if (window.editor) {
+		window.editor.refresh();
+	}
 }
-if (window.addEventListener) {              
-  document.getElementById("dragbar").addEventListener("mousedown", function(e) {dragstart(e);});
-  document.getElementById("dragbar").addEventListener("touchstart", function(e) {dragstart(e);});
-  window.addEventListener("mousemove", function(e) {dragmove(e);});
-  window.addEventListener("touchmove", function(e) {dragmove(e);});
-  window.addEventListener("mouseup", dragend);
-  window.addEventListener("touchend", dragend);
-  window.addEventListener("load", fixDragBtn);
-  window.addEventListener("load", showFrameSize);
+if (window.addEventListener) {							
+	document.getElementById("dragbar").addEventListener("mousedown", function(e) {dragstart(e);});
+	document.getElementById("dragbar").addEventListener("touchstart", function(e) {dragstart(e);});
+	window.addEventListener("mousemove", function(e) {dragmove(e);});
+	window.addEventListener("touchmove", function(e) {dragmove(e);});
+	window.addEventListener("mouseup", dragend);
+	window.addEventListener("touchend", dragend);
+	window.addEventListener("load", fixDragBtn);
+	window.addEventListener("load", showFrameSize);
 }
 
 function w3_getStyleValue(elmnt,style) {
-    if (window.getComputedStyle) {
-        return window.getComputedStyle(elmnt,null).getPropertyValue(style);
-    } else {
-        return elmnt.currentStyle[style];
-    }
+		if (window.getComputedStyle) {
+				return window.getComputedStyle(elmnt,null).getPropertyValue(style);
+		} else {
+				return elmnt.currentStyle[style];
+		}
 }
 
 function openMenu() {
-  var x = document.getElementById("navbarDropMenu");
-  var y = document.getElementById("menuOverlay");
-  var z = document.getElementById("menuButton");
-  if (z.className.indexOf("w3-text-gray") == -1) {
-      z.className += " w3-text-gray";
-  } else { 
-      z.className = z.className.replace(" w3-text-gray", "");
-  }
-  if (z.className.indexOf("w3-gray") == -1) {
-      z.className += " w3-gray";
-  } else { 
-      z.className = z.className.replace(" w3-gray", "");
-  }
-  if (x.className.indexOf("w3-show") == -1) {
-      x.className += " w3-show";
-  } else { 
-      x.className = x.className.replace(" w3-show", "");
-  }
-  if (y.className.indexOf("w3-show") == -1) {
-      y.className += " w3-show";
-  } else { 
-      y.className = y.className.replace(" w3-show", "");
-  }
+	var x = document.getElementById("navbarDropMenu");
+	var y = document.getElementById("menuOverlay");
+	var z = document.getElementById("menuButton");
+	if (z.className.indexOf("w3-text-gray") == -1) {
+			z.className += " w3-text-gray";
+	} else { 
+			z.className = z.className.replace(" w3-text-gray", "");
+	}
+	if (z.className.indexOf("w3-gray") == -1) {
+			z.className += " w3-gray";
+	} else { 
+			z.className = z.className.replace(" w3-gray", "");
+	}
+	if (x.className.indexOf("w3-show") == -1) {
+			x.className += " w3-show";
+	} else { 
+			x.className = x.className.replace(" w3-show", "");
+	}
+	if (y.className.indexOf("w3-show") == -1) {
+			y.className += " w3-show";
+	} else { 
+			y.className = y.className.replace(" w3-show", "");
+	}
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == document.getElementById("saveModal")) {
-        hideAndResetModal();
-    }
-    if (event.target == document.getElementById("driveSaveModal")) {
-        resetDriveSaveModal();
-    }
-    if (event.target == document.getElementById("driveLoadModal")) {
-        resetDriveLoadModal();
-    }
-    if (event.target == document.getElementById("menuOverlay")) {
-        openMenu();
-    }
-    
+		if (event.target == document.getElementById("saveModal")) {
+				hideAndResetModal();
+		}
+		if (event.target == document.getElementById("driveSaveModal")) {
+				resetDriveSaveModal();
+		}
+		if (event.target == document.getElementById("driveLoadModal")) {
+				resetDriveLoadModal();
+		}
+		if (event.target == document.getElementById("menuOverlay")) {
+				openMenu();
+		}
+		
 }
 </script>
 

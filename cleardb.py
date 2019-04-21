@@ -1,5 +1,6 @@
 import os
 import sys
+import mysql.connector
 import urllib.parse as urlparse
 
 # Register database schemes in URLs.
@@ -13,8 +14,8 @@ try:
     if 'DATABASES' not in locals():
         DATABASES = {}
 
-    if 'DATABASE_URL' in os.environ:
-        url = urlparse.urlparse(os.environ['DATABASE_URL'])
+    if 'CLEARDB_DATABASE_URL' in os.environ:
+        url = urlparse.urlparse(os.environ['CLEARDB_DATABASE_URL'])
 
         # Ensure default database exists.
         DATABASES['default'] = DATABASES.get('default', {})
@@ -28,29 +29,12 @@ try:
             'PORT': url.port,
         })
 
-        print(DATABASES)
-        
-        if url.scheme == 'mysql':
-            DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
+        #if url.scheme == 'mysql':
+        #    DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 
-        mydb = mysql.connector.connect(user=DATABASES['USER'], password=DATABASES['PASSWORD'],
-                              host=DATABASES['HOST'],
-                              database=DATABASES['NAME'])
-        mycursor = mydb.cursor()
+        mydb = mysql.connector.connect(user=DATABASES['default'].get('USER'), password=DATABASES['default'].get('PASSWORD'),
+                              host=DATABASES['default'].get('HOST'),
+                              database=DATABASES['default'].get('NAME'))
 
-        mycursor.execute("SHOW TABLES")
-
-        for x in mycursor:
-          print(x)
-
-        sql = "INSERT INTO weights (name, w0, w1) VALUES (%s, %s, %s)"
-
-
-        mycursor.executemany(sql, val)
-
-        mydb.commit()
-
-
-                    
 except Exception:
     print('Unexpected error:', sys.exc_info())

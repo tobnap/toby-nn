@@ -2,10 +2,10 @@ import web
 import os
 
 urls = ('/', 'home',
-        '/evaluate', 'evaluate',
+        '/evaluate', 'diy.evaluate.evaluate',
         '/train', 'train',
-        '/run', 'diy.evaluate.evaluate',
-        '/nn', 'diy.train.train',
+        '/run', 'diy.run.run',
+        '/nn', 'diy.nn.nn',
         '/text', 'text.runtext.runtext',
         '/face', 'face.runface.runface',
         '/music', 'music.runmusic.runmusic',
@@ -25,9 +25,9 @@ class home:
     def GET(self):
         return render.home()
 
-class evaluate:
-    def GET(self):
-        return render.evaluate()
+#class evaluate:
+#    def GET(self):
+#        return render.evaluate()
 
 class train:
     def GET(self):
