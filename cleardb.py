@@ -32,9 +32,10 @@ try:
         #if url.scheme == 'mysql':
         #    DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 
-        mydb = mysql.connector.connect(user=DATABASES['default'].get('USER'), password=DATABASES['default'].get('PASSWORD'),
-                              host=DATABASES['default'].get('HOST'),
-                              database=DATABASES['default'].get('NAME'))
+        user=DATABASES['default'].get('USER')
+        password=DATABASES['default'].get('PASSWORD')
+        host=DATABASES['default'].get('HOST')
+        database=DATABASES['default'].get('NAME')
 
 except Exception:
     print('Unexpected error:', sys.exc_info())

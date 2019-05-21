@@ -1,7 +1,10 @@
 import web
 import simplejson as json
 import numpy as np
-from cleardb import mydb
+from cleardb import user
+from cleardb import password
+from cleardb import host
+from cleardb import database
 
 def nonlin(x,deriv=False):
     if(deriv==True):
@@ -106,6 +109,7 @@ class nn:
         w1 = w1.tolist()
         w0 = json.dumps(w0)
         w1 = json.dumps(w1)
+        mydb = mysql.connector.connect(user=user, password=password, host=host, database=database)
         mycursor = mydb.cursor()
         sql = "INSERT INTO weights (name1, name2, w0, w1) VALUES (%s, %s, %s, %s)"
         #val = (name1, name2, np.array2string(w0, separator=','), np.array2string(w1, separator=','))

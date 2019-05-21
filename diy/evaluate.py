@@ -1,12 +1,16 @@
 import web
 import mysql.connector
+from cleardb import user
+from cleardb import password
+from cleardb import host
+from cleardb import database
 
 render = web.template.render('html/')
 
 class evaluate:
     def GET(self):
         from web import form
-        from cleardb import mydb
+        mydb = mysql.connector.connect(user=user, password=password, host=host, database=database)
         mycursor = mydb.cursor()
         mycursor.execute("SELECT `index`, name1, name2 FROM weights")
         names = mycursor.fetchall()

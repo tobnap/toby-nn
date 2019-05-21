@@ -2,7 +2,10 @@ import web
 import mysql.connector
 import numpy as np
 import simplejson as json
-from cleardb import mydb
+from cleardb import user
+from cleardb import password
+from cleardb import host
+from cleardb import database
 
 #mycursor.execute("SELECT w0, w1 FROM weights")
 #myresult = mycursor.fetchall()
@@ -36,6 +39,7 @@ class run:
         message_array = message.split(',')
         message_int = [int(x) for x in message_array]
         index = user_data.Model
+        mydb = mysql.connector.connect(user=user, password=password, host=host, database=database)
         mycursor = mydb.cursor()
         mycursor.execute("SELECT w0, w1, name1, name2 FROM weights where `index` = " + str(index))
         weights = mycursor.fetchall()
