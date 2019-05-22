@@ -1,8 +1,10 @@
 import os
 import sys
 import mysql.connector
-import urllib.parse as urlparse
-
+try:
+    import urllib.parse as urlparse
+except:
+   import urlparse
 # Register database schemes in URLs.
 urlparse.uses_netloc.append('mysql')
 
