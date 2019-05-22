@@ -1,7 +1,7 @@
 import web
-import mysql.connector
 import numpy as np
 import simplejson as json
+import mysql.connector
 from cleardb import user
 from cleardb import password
 from cleardb import host
