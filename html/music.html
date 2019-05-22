@@ -1,4 +1,3 @@
-$def with (music)
 <html lang="en-US">
 <head>
 <title>Neural Composer</title>
@@ -15,6 +14,7 @@ $def with (music)
 <script src="static/js/codemirror.js"></script>
 <script src="static/js/jquery.min.js"></script>
 <script src="static/js/repo.js"></script>
+<script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
 
 <script>
 if (window.addEventListener) {							
@@ -386,10 +386,11 @@ border:1px solid #dfe2e5!important;
 		<div id="iframe">
 			<div id="iframewrapper" style="margin: 0px auto; overflow: hidden; text-align: center;">
 				<div id="iframeResult">
-					<audio controls autoplay onended="window.location.reload()">>
+					<!--<audio controls autoplay onended="window.location.reload()">>
 						<source src="$music" type="audio/mpeg">
 						Your browser does not support the audio element.
-					</audio>
+					</audio>-->
+					<a href="#" onclick="MIDIjs.play('https://drive.google.com/uc?id=1eNuHJECYfKMlLcn6S_OuTXpQJJk16yXd');">Play</a>
 				</div>
 			</div>
 		</div>
