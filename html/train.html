@@ -8,13 +8,11 @@
 <meta property="og:image:height" content="200">
 <meta charset="utf-8">
 <link rel="stylesheet" href="static/css/w3.css">
-<link rel="stylesheet" href="static/css/codemirror.css">
 <link rel="stylesheet" href="static/css/style.css">
 <link rel="icon" type="image/x-icon" href="static/favicon.ico">
-<script src="static/js/codemirror.js"></script>
 <script src="static/js/jquery.min.js"></script>
 <script src="static/js/repo.js"></script>
-
+<script src="static/js/grid.js"></script>
 <script>
 if (window.addEventListener) {							
 		window.addEventListener("resize", browserResize);
@@ -205,226 +203,15 @@ function retheme() {
 						}
 						return valid; // return the valid status
 					}
-					function setPixelColor(id) {
-						if (document.getElementById(id).style.backgroundColor == 'black') {
-							document.getElementById(id).style.backgroundColor = 'white';
-							document.getElementById(id).setAttribute("value", 0);
-						}
-						else {
-							document.getElementById(id).style.backgroundColor = 'black';
-							document.getElementById(id).setAttribute("value", 1);
-						}
-					}
-					
-					function savePixelColor() {
-						// var output = ""
-						var output = [];
-						for (var i = 0; i < 19; i++) {
-							for (var j = 0; j < 19; j++) {
-								// output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-								var val = document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-								output.push(val);
-								if(!(i==18 && j==18)){
-									// output = output + ",";
-								}		
-							}
-						}
-						if (objCounter <= 5) {
-								name1Objs.push(output);
-						}
-						else if(objCounter < 10) {
-							name2Objs.push(output);
-						}
-						else {
-							name2Objs.push(output);
-							document.getElementById("name1Objs").value = JSON.stringify(name1Objs);
-							document.getElementById("name2Objs").value = JSON.stringify(name2Objs);
-							document.getElementById("regForm").submit();
-							console.log(name1Objs);
-							console.log(name2Objs);
-						}
-						document.getElementById("counter").innerHTML = objCounter++;
-					}
-					
-					function resetPixelColor() {
-						var els = document.getElementsByClassName("pixel")
-						Array.prototype.forEach.call(els, function(el) {
-							el.style.backgroundColor = 'white';
-							el.setAttribute("value", 0);
-						});
-					}
-
-					function tableCreate() {
-							var artContainer = document.getElementById('artContainer');
-							var artDiv = document.createElement('div');
-							artDiv.setAttribute('class', 'art');
-							for (var i = 0; i < 19; i++) {
-									var div = document.createElement('div');
-									div.setAttribute('class', 'row');
-									for (var j = 0; j < 19; j++) {
-											var colDiv = document.createElement('div');
-											colDiv.setAttribute('class', 'pixel');
-											colDiv.id = "pixel-" + i + "-" + j;
-											colDiv.setAttribute("value", 0)
-											colDiv.setAttribute("onclick", "setPixelColor(this.id)");
-											div.appendChild(colDiv);
-									}
-									artDiv.appendChild(div);
-							}
-						artContainer.appendChild(artDiv);
-					}
 					tableCreate();
-					function showValues() {
-							// var output = ""
-							var output = [];
-							for (var i = 0; i < 19; i++) {
-									for (var j = 0; j < 19; j++) {
-											// output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-											val = document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-											if(!(i==18 && j==18)){
-													// output = output + ",";
-													output.push(val);
-											}
-											
-									}
-							}
-							//console.log(output)
-							document.getElementById("output").innerHTML = output;
-					}
 					</script>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
+<script src="static/js/main.js"></script>
 <script>
-function setPixelColor(id) {
-	if (document.getElementById(id).style.backgroundColor == 'black') {
-			document.getElementById(id).style.backgroundColor = 'white';
-			document.getElementById(id).setAttribute("value", 0)
-	}
-	else {
-			document.getElementById(id).style.backgroundColor = 'black';
-			document.getElementById(id).setAttribute("value", 1)
-	}
-}
-
-function tableCreate() {
-	var artContainer = document.getElementById('artContainer');
-	var artDiv = document.createElement('div');
-	artDiv.setAttribute('class', 'art');
-	for (var i = 0; i < 19; i++) {
-			var div = document.createElement('div');
-			div.setAttribute('class', 'row');
-			for (var j = 0; j < 19; j++) {
-					var colDiv = document.createElement('div');
-					colDiv.setAttribute('class', 'pixel');
-					colDiv.id = "pixel-" + i + "-" + j;
-					colDiv.setAttribute("value", 0)
-					colDiv.setAttribute("onclick", "setPixelColor(this.id)");
-					div.appendChild(colDiv);
-			}
-			artDiv.appendChild(div);
-	}
-artContainer.appendChild(artDiv);
-}
-tableCreate();
-function showValues() {
-	var output = ""
-	for (var i = 0; i < 19; i++) {
-			for (var j = 0; j < 19; j++) {
-					output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
-					if(!(i==18 && j==18)){
-							output = output + ",";
-					}
-					
-			}
-	}
-	console.log(output)
-	document.getElementById("output").innerHTML = output;
-}
-function showFrameSize() {
-	var t;
-	var width, height;
-	width = Number(w3_getStyleValue(document.getElementById("iframeResult"), "width").replace("px", "")).toFixed();
-	height = Number(w3_getStyleValue(document.getElementById("iframeResult"), "height").replace("px", "")).toFixed();
-	document.getElementById("framesize").innerHTML = "Result Size: <span>" + width + " x " + height + "</span>";
-}
-var dragging = false;
-var stack;
-function fixDragBtn() {
-	var textareawidth, leftpadding, dragleft, containertop, buttonwidth
-	var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
-	if (stack != " horizontal") {
-	document.getElementById("dragbar").style.width = "5px";	
-	textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
-	leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
-	buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
-	textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
-	dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
-	document.getElementById("dragbar").style.top = containertop + "px";
-	document.getElementById("dragbar").style.left = dragleft + "px";
-	document.getElementById("dragbar").style.height = textareaheight;
-	document.getElementById("dragbar").style.cursor = "col-resize";
-	
-	} else {
-	document.getElementById("dragbar").style.height = "5px";
-	if (window.getComputedStyle) {
-		textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("height");
-		textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("width");
-		leftpadding = window.getComputedStyle(document.getElementById("textarea"),null).getPropertyValue("padding-top");
-		buttonwidth = window.getComputedStyle(document.getElementById("dragbar"),null).getPropertyValue("height");
-	} else {
-		dragleft = document.getElementById("textareawrapper").currentStyle["width"];
-	}
-	textareawidth = Number(textareawidth.replace("px", ""));
-	leftpadding = Number(leftpadding .replace("px", ""));
-	buttonwidth = Number(buttonwidth .replace("px", ""));
-	dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
-	document.getElementById("dragbar").style.top = dragleft + "px";
-	document.getElementById("dragbar").style.left = "5px";
-	document.getElementById("dragbar").style.width = textareaheight;
-	document.getElementById("dragbar").style.cursor = "row-resize";		
-	}
-}
-function dragstart(e) {
-	e.preventDefault();
-	dragging = true;
-	var main = document.getElementById("iframecontainer");
-}
-function dragmove(e) {
-	if (dragging) 
-	{
-	document.getElementById("shield").style.display = "block";
-	if (stack != " horizontal") {
-		var percentage = (e.pageX / window.innerWidth) * 100;
-		if (percentage > 5 && percentage < 98) {
-		var mainPercentage = 100-percentage;
-		document.getElementById("textareacontainer").style.width = percentage + "%";
-		document.getElementById("iframecontainer").style.width = mainPercentage + "%";
-		fixDragBtn();
-		}
-	} else {
-		var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
-		var percentage = ((e.pageY - containertop + 20) / (window.innerHeight - containertop + 20)) * 100;
-		if (percentage > 5 && percentage < 98) {
-		var mainPercentage = 100-percentage;
-		document.getElementById("textareacontainer").style.height = percentage + "%";
-		document.getElementById("iframecontainer").style.height = mainPercentage + "%";
-		fixDragBtn();
-		}
-	}
-	showFrameSize();	
-	}
-}
-function dragend() {
-	document.getElementById("shield").style.display = "none";
-	dragging = false;
-	if (window.editor) {
-	window.editor.refresh();
-	}
-}
 if (window.addEventListener) {				
 	document.getElementById("dragbar").addEventListener("mousedown", function(e) {dragstart(e);});
 	document.getElementById("dragbar").addEventListener("touchstart", function(e) {dragstart(e);});
@@ -436,50 +223,9 @@ if (window.addEventListener) {
 	window.addEventListener("load", showFrameSize);
 }
 
-function w3_getStyleValue(elmnt,style) {
-	if (window.getComputedStyle) {
-		return window.getComputedStyle(elmnt,null).getPropertyValue(style);
-	} else {
-		return elmnt.currentStyle[style];
-	}
-}
-
-function openMenu() {
-	var x = document.getElementById("navbarDropMenu");
-	var y = document.getElementById("menuOverlay");
-	var z = document.getElementById("menuButton");
-	if (z.className.indexOf("w3-text-gray") == -1) {
-		z.className += " w3-text-gray";
-	} else { 
-		z.className = z.className.replace(" w3-text-gray", "");
-	}
-	if (z.className.indexOf("w3-gray") == -1) {
-		z.className += " w3-gray";
-	} else { 
-		z.className = z.className.replace(" w3-gray", "");
-	}
-	if (x.className.indexOf("w3-show") == -1) {
-		x.className += " w3-show";
-	} else { 
-		x.className = x.className.replace(" w3-show", "");
-	}
-	if (y.className.indexOf("w3-show") == -1) {
-		y.className += " w3-show";
-	} else { 
-		y.className = y.className.replace(" w3-show", "");
-	}
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-	if (event.target == document.getElementById("menuOverlay")) {
-		openMenu();
-	}
-}
-
 function toggleCode() {
 	if (!document.getElementsByClassName("repo loaded")[0]) {
-		$$('#textareawrapper').repo({ user: 'tobnap', name: 'DIY-Neural-Network-Evaluate', branch: 'master' });
+		$$('#textareawrapper').repo({ user: 'tobnap', name: 'DIY-Neural-Network-Train', branch: 'master' });
 	}
 	
 	var x = document.getElementsByClassName("hide");
@@ -505,6 +251,5 @@ function toggleCode() {
 	fixDragBtn();
 }
 </script>
-
 </body>
 </html>
