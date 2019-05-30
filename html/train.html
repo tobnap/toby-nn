@@ -33,6 +33,26 @@ function browserResize() {
 		}
 		if (window.screen.availWidth <= 768) {
 			restack(window.innerHeight > window.innerWidth);
+		} 
+}
+
+if (window.addEventListener) {							
+		window.addEventListener("resize", browserResize);
+} else if (window.attachEvent) {								 
+		window.attachEvent("onresize", browserResize);
+}
+var xbeforeResize = window.innerWidth;
+
+function browserResize() {
+		var afterResize = window.innerWidth;
+		if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
+				(xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
+				(xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
+				xbeforeResize = afterResize;
+				 
+		}
+		if (window.screen.availWidth <= 768) {
+			restack(window.innerHeight > window.innerWidth);
 		}
 		fixDragBtn();
 		showFrameSize();		
@@ -68,6 +88,7 @@ function retheme() {
 	}
 }
 </script>
+
 <style>
 * {
 	-webkit-box-sizing: border-box;
@@ -78,6 +99,12 @@ body {
 	color:#000000;
 	margin:0px;
 	font-size:100%;
+}
+th {
+	display:none;
+}
+form.evaluateForm table {
+	margin: 0 auto;
 }
 .trytopnav {
 	height:40px;
@@ -329,15 +356,6 @@ background:#ffffff!important;
 border:1px solid #dfe2e5!important;
 }
 </style>
-<!--[if lt IE 8]>
-<style>
-#textareacontainer, #iframecontainer {width:48%;}
-#container {height:500px;}
-#textarea, #iframe {width:90%;height:450px;}
-#textareaCode, #iframeResult {height:450px;}
-.stack {display:none;}
-</style>
-<![endif]-->
 </head>
 <body>
 
@@ -383,11 +401,10 @@ border:1px solid #dfe2e5!important;
 					<style>
 					#regForm {
 						background-color: #ffffff;
-						margin: 100px auto;
 						font-family: Raleway;
-						padding: 40px;
-						width: 70%;
-						min-width: 300px;
+						width: 100%;
+						text-align:center;
+						margin:0 auto;
 					}
 
 					.tab {
@@ -407,7 +424,7 @@ border:1px solid #dfe2e5!important;
 						<div class="tab"><div id="object"></div>
 						<span id="name"></span>
 						<span id="counter"></span>
-						<div id="artContainer"></div>
+						<div id="artContainer" align="center"></div>
 						<input type="hidden" name="name1Objs" id="name1Objs"></input>
 						<input type="hidden" name="name2Objs" id="name2Objs"></input>
 						</div>

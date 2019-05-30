@@ -34,6 +34,26 @@ function browserResize() {
 		}
 		if (window.screen.availWidth <= 768) {
 			restack(window.innerHeight > window.innerWidth);
+		} 
+}
+
+if (window.addEventListener) {							
+		window.addEventListener("resize", browserResize);
+} else if (window.attachEvent) {								 
+		window.attachEvent("onresize", browserResize);
+}
+var xbeforeResize = window.innerWidth;
+
+function browserResize() {
+		var afterResize = window.innerWidth;
+		if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
+				(xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
+				(xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
+				xbeforeResize = afterResize;
+				 
+		}
+		if (window.screen.availWidth <= 768) {
+			restack(window.innerHeight > window.innerWidth);
 		}
 		fixDragBtn();
 		showFrameSize();		
@@ -69,6 +89,7 @@ function retheme() {
 	}
 }
 </script>
+
 <style>
 * {
 	-webkit-box-sizing: border-box;
@@ -79,6 +100,12 @@ body {
 	color:#000000;
 	margin:0px;
 	font-size:100%;
+}
+th {
+	display:none;
+}
+form.evaluateForm table {
+	margin: 0 auto;
 }
 .trytopnav {
 	height:40px;
@@ -330,15 +357,6 @@ background:#ffffff!important;
 border:1px solid #dfe2e5!important;
 }
 </style>
-<!--[if lt IE 8]>
-<style>
-#textareacontainer, #iframecontainer {width:48%;}
-#container {height:500px;}
-#textarea, #iframe {width:90%;height:450px;}
-#textareaCode, #iframeResult {height:450px;}
-.stack {display:none;}
-</style>
-<![endif]-->
 </head>
 <body>
 

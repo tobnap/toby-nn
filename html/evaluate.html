@@ -34,6 +34,26 @@ function browserResize() {
 		}
 		if (window.screen.availWidth <= 768) {
 			restack(window.innerHeight > window.innerWidth);
+		} 
+}
+
+if (window.addEventListener) {							
+		window.addEventListener("resize", browserResize);
+} else if (window.attachEvent) {								 
+		window.attachEvent("onresize", browserResize);
+}
+var xbeforeResize = window.innerWidth;
+
+function browserResize() {
+		var afterResize = window.innerWidth;
+		if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
+				(xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
+				(xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
+				xbeforeResize = afterResize;
+				 
+		}
+		if (window.screen.availWidth <= 768) {
+			restack(window.innerHeight > window.innerWidth);
 		}
 		fixDragBtn();
 		showFrameSize();		
@@ -69,6 +89,7 @@ function retheme() {
 	}
 }
 </script>
+
 <style>
 * {
 	-webkit-box-sizing: border-box;
@@ -79,6 +100,12 @@ body {
 	color:#000000;
 	margin:0px;
 	font-size:100%;
+}
+th {
+	display:none;
+}
+form.evaluateForm table {
+	margin: 0 auto;
 }
 .trytopnav {
 	height:40px;
@@ -330,15 +357,6 @@ background:#ffffff!important;
 border:1px solid #dfe2e5!important;
 }
 </style>
-<!--[if lt IE 8]>
-<style>
-#textareacontainer, #iframecontainer {width:48%;}
-#container {height:500px;}
-#textarea, #iframe {width:90%;height:450px;}
-#textareaCode, #iframeResult {height:450px;}
-.stack {display:none;}
-</style>
-<![endif]-->
 </head>
 <body>
 
@@ -349,12 +367,13 @@ border:1px solid #dfe2e5!important;
 	<a href="javascript:void(0);" onclick="retheme()" title="Change Theme" class="w3-button w3-bar-item topnav-icons fa fa-adjust" style="font-size:28px;margin-top:-2px"></a>
 	<span class="w3-right w3-hide-medium w3-hide-small" style="padding:8px 8px 8px 8px;display:block"></span>
 	<span class="w3-right w3-hide-small" style="padding:8px 0;display:block;float:right;"><span id="framesize"></span></span>
+	<button onclick="toggleCode()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px">Show Code</button>
 </div>
 
 </div>
 <div id="shield"></div>
 
-<a href="javascript:void(0)" id="dragbar"></a>
+<a href="javascript:void(0)" id="dragbar" class="hide"></a>
 <div id="container">
 		<div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
 				<span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent w3-hover-dark-grey" title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;">&times;</span>
@@ -372,7 +391,7 @@ border:1px solid #dfe2e5!important;
 					</footer>
 			</div>
 <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
-	<div id="textareacontainer">
+	<div id="textareacontainer" class="hide">
 		<div id="textarea">
 			<div id="textareawrapper"></div>
 		</div>
@@ -381,10 +400,10 @@ border:1px solid #dfe2e5!important;
 		<div id="iframe">
 			<div id="iframewrapper">
 				<div id="iframeResult" style="padding:5px;">
-					<div id="artContainer"></div>
-					<form name="main" action="/run" method="POST" target="_top">
+					<div id="artContainer" align="center"></div>
+					<form name="main" action="/run" method="POST" target="_top" class="evaluateForm" style="text-align:center;padding:5px;">
 						<textarea readonly id="output" name="message" style="display:none"></textarea>
-						<button onClick="showValues()" type="submit" class="button">Click</button>
+						<button onClick="showValues()" type="submit" class="button">Evaluate</button>
 						$if not evaluateForm.valid: <p class="error">Try again, AmeriCAN:</p>
 						$:evaluateForm.render()
 					</form>
@@ -627,6 +646,24 @@ window.onclick = function(event) {
         openMenu();
     }
     
+}
+
+function toggleCode() {
+	var x = document.getElementsByClassName("hide");
+	Array.prototype.forEach.call(x, function(e){
+		if (e.style.display === "none") {
+			e.style.display = "block";
+		} else {
+			e.style.display = "none";
+		}
+	});
+	
+	var y = document.getElementById("iframecontainer");
+	if (y.style.width = "100%") {
+		y.style.width = "50%";
+	} else {
+		y.style.width = "100%";
+	}
 }
 </script>
 

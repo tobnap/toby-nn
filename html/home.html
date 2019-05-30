@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="static/css/codemirror.css">
 <link rel="icon" type="image/x-icon" href="static/favicon.ico">
 <script src="static/js/codemirror.js"></script>
-</head>
-<body>
 
 <script>
 if (window.addEventListener) {							
@@ -28,7 +26,60 @@ function browserResize() {
 			restack(window.innerHeight > window.innerWidth);
 		} 
 }
+
+if (window.addEventListener) {							
+		window.addEventListener("resize", browserResize);
+} else if (window.attachEvent) {								 
+		window.attachEvent("onresize", browserResize);
+}
+var xbeforeResize = window.innerWidth;
+
+function browserResize() {
+		var afterResize = window.innerWidth;
+		if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
+				(xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
+				(xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
+				xbeforeResize = afterResize;
+				 
+		}
+		if (window.screen.availWidth <= 768) {
+			restack(window.innerHeight > window.innerWidth);
+		}
+		fixDragBtn();
+		showFrameSize();		
+}
+var fileID = "";
+var loadSave = false;
+function getSavedFile() {
+		loadSave = true;
+		var htmlCode;
+		var paramObj = {};
+		paramObj.fileid = "";
+		fileID = paramObj.fileid;
+		var paramA = JSON.stringify(paramObj);
+		var httpA = new XMLHttpRequest();
+		httpA.open("POST", globalURL, true);
+		httpA.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		httpA.onreadystatechange = function() {
+				if(httpA.readyState == 4 && httpA.status == 200) {
+						document.getElementById("textareaCode").value = httpA.responseText;
+						window.editor.getDoc().setValue(httpA.responseText);
+						loadSave = false;
+				}
+		}
+		httpA.send(paramA);	 
+}
+
+function retheme() {
+	var cc = document.body.className;
+	if (cc.indexOf("darktheme") > -1) {
+		document.body.className = cc.replace("darktheme", "");
+	} else {
+		document.body.className += " darktheme";
+	}
+}
 </script>
+
 <style>
 * {
 	-webkit-box-sizing: border-box;
@@ -39,6 +90,12 @@ body {
 	color:#000000;
 	margin:0px;
 	font-size:100%;
+}
+th {
+	display:none;
+}
+form.evaluateForm table {
+	margin: 0 auto;
 }
 .trytopnav {
 	height:40px;
@@ -105,7 +162,7 @@ a.w3schoolslink:hover,a.w3schoolslink:active {
 	padding-right:5px;	
 }
 #iframe {
-	padding-left:10px;
+	padding-left:5px;
 	padding-right:10px;	
 }
 #textareawrapper {
@@ -228,22 +285,6 @@ font-style:normal;
 .fa-evaluate:before {content: '\e80f'; }
 .fa-train:before {content: '\e810'; }
 .fa-music:before {content: '\e811'; }
-.loader {
-		border: 6px solid #f3f3f3; /* Light grey */
-		border-top: 6px solid #3498db; /* Blue */
-		border-radius: 50%;
-		width: 60px;
-		height: 60px;
-		animation: spin 2s linear infinite;
-}
-#saveLoader {
-		margin:20px;
-}
-
-@keyframes spin {
-		0% { transform: rotate(0deg); }
-		100% { transform: rotate(360deg); }
-}
 #iframewrapper {
 	
 }
@@ -264,8 +305,50 @@ body.darktheme #container {
 body.darktheme .trytopnav a {
 	color:#dddddd;
 }
-
+.repo {
+height:100%!important;
+margin:0 0 0 0!important;
+//overflow-y:visible!important;
+}
+pre[class*="language-"] {
+overflow:auto!important;
+}
+.repo li {
+border-bottom:1px solid #eaecef!important;
+}
+.repo li.titles {
+background:#f1f8ff!important;
+}
+.repo ul * {
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol!important;
+line-height:17px!important;
+font-size:14px!important;
+}
+.repo li a, .repo li a:visited, .repo li a:active {
+color:#0366d6!important;
+}
+.repo li.titles:before, .repo li.back:before {
+background-image:none!important;
+}
+.repo li.dir:before {
+background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgd2lkdGg9IjAuODhlbSIgaGVpZ2h0PSIxZW0iIHN0eWxlPSItbXMtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDE0IDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMyA0SDdWM2MwLS42Ni0uMzEtMS0xLTFIMWMtLjU1IDAtMSAuNDUtMSAxdjEwYzAgLjU1LjQ1IDEgMSAxaDEyYy41NSAwIDEtLjQ1IDEtMVY1YzAtLjU1LS40NS0xLTEtMXpNNiA0SDFWM2g1djF6IiBmaWxsPSIjNjI2MjYyIi8+PC9zdmc+")!important;
+}
+.repo li:before {
+background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgd2lkdGg9IjAuNzVlbSIgaGVpZ2h0PSIxZW0iIHN0eWxlPSItbXMtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02IDVIMlY0aDR2MXpNMiA4aDdWN0gydjF6bTAgMmg3VjlIMnYxem0wIDJoN3YtMUgydjF6bTEwLTcuNVYxNGMwIC41NS0uNDUgMS0xIDFIMWMtLjU1IDAtMS0uNDUtMS0xVjJjMC0uNTUuNDUtMSAxLTFoNy41TDEyIDQuNXpNMTEgNUw4IDJIMXYxMmgxMFY1eiIgZmlsbD0iIzYyNjI2MiIvPjwvc3ZnPg==")!important;
+}
+.repo h1 {
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol!important;
+}
+.repo h1 a, .repo h1 a:active, .repo h1 a:visited, .repo h1 a:hover {
+color:#0366d6!important;
+}
+.repo .page {
+background:#ffffff!important;
+border:1px solid #dfe2e5!important;
+}
 </style>
+</head>
+<body>
 
 <div class="trytopnav">
 <div class="w3-bar" style="overflow:auto">
