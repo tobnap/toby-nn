@@ -32,31 +32,8 @@ function browserResize() {
 				xbeforeResize = afterResize;
 				 
 		}
-		if (window.screen.availWidth <= 768) {
-			restack(window.innerHeight > window.innerWidth);
-		} 
-}
-
-if (window.addEventListener) {							
-		window.addEventListener("resize", browserResize);
-} else if (window.attachEvent) {								 
-		window.attachEvent("onresize", browserResize);
-}
-var xbeforeResize = window.innerWidth;
-
-function browserResize() {
-		var afterResize = window.innerWidth;
-		if ((xbeforeResize < (970) && afterResize >= (970)) || (xbeforeResize >= (970) && afterResize < (970)) ||
-				(xbeforeResize < (728) && afterResize >= (728)) || (xbeforeResize >= (728) && afterResize < (728)) ||
-				(xbeforeResize < (468) && afterResize >= (468)) ||(xbeforeResize >= (468) && afterResize < (468))) {
-				xbeforeResize = afterResize;
-				 
-		}
-		if (window.screen.availWidth <= 768) {
-			restack(window.innerHeight > window.innerWidth);
-		}
 		fixDragBtn();
-		showFrameSize();		
+		showFrameSize();
 }
 var fileID = "";
 var loadSave = false;
@@ -89,291 +66,23 @@ function retheme() {
 	}
 }
 </script>
-
-<style>
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-body {
-	color:#000000;
-	margin:0px;
-	font-size:100%;
-}
-th {
-	display:none;
-}
-form.evaluateForm table {
-	margin: 0 auto;
-}
-.trytopnav {
-	height:40px;
-	overflow:hidden;
-	min-width:380px;
-	position:absolute;
-	width:100%;
-	background-color:#f1f1f1;
-}
-.trytopnav a {
-	color:#999999;
-}
-.w3-bar .w3-bar-item:hover {
-	color:#757575 !important;
-}
-a.w3schoolslink {
-	padding:0 !important;
-	display:inline !important;
-}
-a.w3schoolslink:hover,a.w3schoolslink:active {
-	text-decoration:underline !important;
-	background-color:transparent !important;
-}
-#dragbar{
-	position:absolute;
-	cursor: col-resize;
-	z-index:3;
-	padding:5px;
-}
-#shield {
-	display:none;
-	top:0;
-	left:0;
-	width:100%;
-	position:absolute;
-	height:100%;
-	z-index:4;
-}
-#framesize span {
-	font-family:Consolas, monospace;
-}
-#container {
-	background-color:#f1f1f1;
-	width:100%;
-	overflow:auto;
-	position:absolute;
-	top:40px;
-	bottom:0;
-	height:auto;
-}
-#textareacontainer, #iframecontainer {
-	float:left;
-	height:100%;
-	width:50%;
-}
-#textarea, #iframe {
-	height:100%;
-	width:100%;
-	padding-bottom:10px;
-	padding-top:1px;
-}
-#textarea {
-	padding-left:10px;
-	padding-right:5px;	
-}
-#iframe {
-	padding-left:5px;
-	padding-right:10px;	
-}
-#textareawrapper {
-	width:100%;
-	height:100%;
-	background-color: #ffffff;
-	position:relative;
-	box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-#iframewrapper {
-	width:100%;
-	height:100%;
-	-webkit-overflow-scrolling: touch;
-	background-color: #ffffff;
-	box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-#textareaCode {
-	background-color: #ffffff;
-	font-family: consolas,"courier new",monospace;
-	font-size:15px;
-	height:100%;
-	width:100%;
-	padding:8px;
-	resize: none;
-	border:none;
-	line-height:normal;		
-}
-.CodeMirror.cm-s-default {
-	line-height:normal;
-	padding: 4px;
-	height:100%;
-	width:100%;
-}
-#iframeResult, #iframeSource {
-	background-color: #ffffff;
-	height:100%;
-	width:100%;	
-}
-#stackV {background-color:#999999;}
-#stackV:hover {background-color:#BBBBBB !important;}
-#stackV.horizontal {background-color:transparent;}
-#stackV.horizontal:hover {background-color:#BBBBBB !important;}
-#stackH.horizontal {background-color:#999999;}
-#stackH.horizontal:hover {background-color:#999999 !important;}
-#textareacontainer.horizontal,#iframecontainer.horizontal{
-	height:50%;
-	float:none;
-	width:100%;
-}
-#textarea.horizontal{
-	height:100%;
-	padding-left:10px;
-	padding-right:10px;
-}
-#iframe.horizontal{
-	height:100%;
-	padding-right:10px;
-	padding-bottom:10px;
-	padding-left:10px;	
-}
-#container.horizontal{
-	min-height:200px;
-	margin-left:0;
-}
-#tryitLeaderboard {
-	overflow:hidden;
-	text-align:center;
-	margin-top:5px;
-	height:90px;
-}
-	.w3-dropdown-content {width:350px}
-	
-@media screen and (max-width: 727px) {
-	.trytopnav {top:70px;}
-	#container {top:108px;}
-
-}
-@media screen and (max-width: 467px) {
-	.trytopnav {top:60px;}
-	#container {top:98px;}
-	.w3-dropdown-content {width:100%}
-}
-@media only screen and (max-device-width: 768px) {
-	#iframewrapper {overflow: auto;}
-	#container		 {min-width:320px;}
-	.stack				 {display:none;}
-	#tryhome			 {display:block;}
-}
-
-@font-face {
-font-family: 'fontawesome';
-src:url('./static/fonts/fontawesome.eot?14663396');
-src:url('./static/fonts/fontawesome.eot?14663396#iefix') format('embedded-opentype'),
-		url('./static/fonts/fontawesome.woff?14663396') format('woff'),
-		url('./static/fonts/fontawesome.ttf?14663396') format('truetype'),
-		url('./static/fonts/fontawesome.svg?14663396#fontawesome') format('svg');
-font-weight:normal;
-font-style:normal;
-}
-.fa {
-	display:inline-block;
-	font:normal normal normal 14px/1 FontAwesome;
-	font-size:inherit;
-	text-rendering:auto;
-	-webkit-font-smoothing:antialiased;
-	-moz-osx-font-smoothing:grayscale;
-	transform:translate(0,0);
-}
-.fa-2x {
-	font-size:2em;
-}
-.fa-home:before {content: '\e800'; }
-.fa-save:before {content: '\e804'; }
-.fa-rotate:before {content: '\e813'; }
-.fa-menu:before {content: '\f0c9'; }
-.fa-adjust:before {content: '\e80b'; }
-.fa-grid:before {content: '\e80c'; }
-.fa-face:before {content: '\e80d'; }
-.fa-document:before {content: '\e80e'; }
-.fa-evaluate:before {content: '\e80f'; }
-.fa-train:before {content: '\e810'; }
-.fa-music:before {content: '\e811'; }
-#iframewrapper {
-	
-}
-
-body.darktheme {
-	background-color:rgb(40, 44, 52);
-}
-body.darktheme #tryitLeaderboard{
-	background-color:rgb(40, 44, 52);
-}
-body.darktheme .trytopnav{
-	background-color:#616161;
-	color:#dddddd;
-}
-body.darktheme #container {
-	background-color:#616161;
-}
-body.darktheme .trytopnav a {
-	color:#dddddd;
-}
-.repo {
-height:100%!important;
-margin:0 0 0 0!important;
-//overflow-y:visible!important;
-}
-pre[class*="language-"] {
-overflow:auto!important;
-}
-.repo li {
-border-bottom:1px solid #eaecef!important;
-}
-.repo li.titles {
-background:#f1f8ff!important;
-}
-.repo ul * {
-font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol!important;
-line-height:17px!important;
-font-size:14px!important;
-}
-.repo li a, .repo li a:visited, .repo li a:active {
-color:#0366d6!important;
-}
-.repo li.titles:before, .repo li.back:before {
-background-image:none!important;
-}
-.repo li.dir:before {
-background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgd2lkdGg9IjAuODhlbSIgaGVpZ2h0PSIxZW0iIHN0eWxlPSItbXMtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDE0IDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMyA0SDdWM2MwLS42Ni0uMzEtMS0xLTFIMWMtLjU1IDAtMSAuNDUtMSAxdjEwYzAgLjU1LjQ1IDEgMSAxaDEyYy41NSAwIDEtLjQ1IDEtMVY1YzAtLjU1LS40NS0xLTEtMXpNNiA0SDFWM2g1djF6IiBmaWxsPSIjNjI2MjYyIi8+PC9zdmc+")!important;
-}
-.repo li:before {
-background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgd2lkdGg9IjAuNzVlbSIgaGVpZ2h0PSIxZW0iIHN0eWxlPSItbXMtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02IDVIMlY0aDR2MXpNMiA4aDdWN0gydjF6bTAgMmg3VjlIMnYxem0wIDJoN3YtMUgydjF6bTEwLTcuNVYxNGMwIC41NS0uNDUgMS0xIDFIMWMtLjU1IDAtMS0uNDUtMS0xVjJjMC0uNTUuNDUtMSAxLTFoNy41TDEyIDQuNXpNMTEgNUw4IDJIMXYxMmgxMFY1eiIgZmlsbD0iIzYyNjI2MiIvPjwvc3ZnPg==")!important;
-}
-.repo h1 {
-font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol!important;
-}
-.repo h1 a, .repo h1 a:active, .repo h1 a:visited, .repo h1 a:hover {
-color:#0366d6!important;
-}
-.repo .page {
-background:#ffffff!important;
-border:1px solid #dfe2e5!important;
-}
-</style>
 </head>
 <body>
 
 <div class="trytopnav">
 <div class="w3-bar" style="overflow:auto">
 	<a href="javascript:void(0);" onclick="openMenu()" id="menuButton" title="Open Menu"class="w3-dropdown-click w3-button w3-bar-item topnav-icons fa fa-menu" style="font-size:28px;margin-top:-2px"></a>
-	<a href="javascript:void(0);" onclick="restack(currentStack)" title="Change Orientation" class="w3-button w3-bar-item topnav-icons fa fa-rotate" style="font-size:28px;margin-top:-2px"></a>
 	<a href="javascript:void(0);" onclick="retheme()" title="Change Theme" class="w3-button w3-bar-item topnav-icons fa fa-adjust" style="font-size:28px;margin-top:-2px"></a>
 	<span class="w3-right w3-hide-medium w3-hide-small" style="padding:8px 8px 8px 8px;display:block"></span>
 	<span class="w3-right w3-hide-small" style="padding:8px 0;display:block;float:right;"><span id="framesize"></span></span>
+	<button onclick="toggleCode()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px">Show Code</button>
 	<button value="Refresh Page" onClick="window.location.reload()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px">Another One</button>
 </div>
 
 </div>
 <div id="shield"></div>
 
-<a href="javascript:void(0)" id="dragbar"></a>
+<a href="javascript:void(0)" id="dragbar" class="hide" style="display:none;"></a>
 <div id="container">
 		<div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
 				<span onclick="openMenu()" class="w3-button w3-display-topright w3-transparent w3-hover-dark-grey" title="Close Menu" style="font-weight:bold;padding-top:10px;padding-bottom:11px;">&times;</span>
@@ -391,16 +100,16 @@ border:1px solid #dfe2e5!important;
 					</footer>
 			</div>
 <div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
-	<div id="textareacontainer">
+	<div id="textareacontainer" class="hide" style="display:none">
 		<div id="textarea">
 			<div id="textareawrapper"></div>
 		</div>
 	</div>
-	<div id="iframecontainer">
+	<div id="iframecontainer" style="width:100%;">
 		<div id="iframe">
 			<div id="iframewrapper" style="margin: 0px auto; overflow: hidden; text-align: center;">
 				<div id="iframeResult">
-					<img class="face" align="middle" border="0" src="$imgur" onerror="this.src='$drive'">
+					<img class="face" align="middle" border="0" src="$imgur" onerror="this.src='$drive'" style="padding:10px;">
 				</div>
 			</div>
 		</div>
@@ -408,50 +117,50 @@ border:1px solid #dfe2e5!important;
 </div>
 
 <script>
-$$('#textareawrapper').repo({ user: 'tobnap', name: 'stylegan', branch: 'master' });
+function setPixelColor(id) {
+	if (document.getElementById(id).style.backgroundColor == 'black') {
+			document.getElementById(id).style.backgroundColor = 'white';
+			document.getElementById(id).setAttribute("value", 0)
+	}
+	else {
+			document.getElementById(id).style.backgroundColor = 'black';
+			document.getElementById(id).setAttribute("value", 1)
+	}
+}
 
-var currentStack=true;
-if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") {restack(true);}
-function restack(horizontal) {
-		var tc, ic, t, i, c, f, sv, sh, d, height, flt, width;
-		tc = document.getElementById("textareacontainer");
-		ic = document.getElementById("iframecontainer");
-		t = document.getElementById("textarea");
-		i = document.getElementById("iframe");
-		c = document.getElementById("container");		
-		sv = document.getElementById("stackV");
-		sh = document.getElementById("stackH");
-		tc.className = tc.className.replace("horizontal", "");
-		ic.className = ic.className.replace("horizontal", "");				
-		t.className = t.className.replace("horizontal", "");				
-		i.className = i.className.replace("horizontal", "");				
-		c.className = c.className.replace("horizontal", "");												
-		if (sv) {sv.className = sv.className.replace("horizontal", "")};
-		if (sv) {sh.className = sh.className.replace("horizontal", "")};
-		stack = "";
-		if (horizontal) {
-				tc.className = tc.className + " horizontal";
-				ic.className = ic.className + " horizontal";				
-				t.className = t.className + " horizontal";				
-				i.className = i.className + " horizontal";								
-				c.className = c.className + " horizontal";								
-				if (sv) {sv.className = sv.className + " horizontal"};
-				if (sv) {sh.className = sh.className + " horizontal"};
-				stack = " horizontal";
-				document.getElementById("textareacontainer").style.height = "50%";
-				document.getElementById("iframecontainer").style.height = "50%";
-				document.getElementById("textareacontainer").style.width = "100%";
-				document.getElementById("iframecontainer").style.width = "100%";
-				currentStack=false;
-		} else {
-				document.getElementById("textareacontainer").style.height = "100%";
-				document.getElementById("iframecontainer").style.height = "100%";
-				document.getElementById("textareacontainer").style.width = "50%";
-				document.getElementById("iframecontainer").style.width = "50%";
-				currentStack=true;				
-		}
-		fixDragBtn();
-		showFrameSize();
+function tableCreate() {
+	var artContainer = document.getElementById('artContainer');
+	var artDiv = document.createElement('div');
+	artDiv.setAttribute('class', 'art');
+	for (var i = 0; i < 19; i++) {
+			var div = document.createElement('div');
+			div.setAttribute('class', 'row');
+			for (var j = 0; j < 19; j++) {
+					var colDiv = document.createElement('div');
+					colDiv.setAttribute('class', 'pixel');
+					colDiv.id = "pixel-" + i + "-" + j;
+					colDiv.setAttribute("value", 0)
+					colDiv.setAttribute("onclick", "setPixelColor(this.id)");
+					div.appendChild(colDiv);
+			}
+			artDiv.appendChild(div);
+	}
+artContainer.appendChild(artDiv);
+}
+tableCreate();
+function showValues() {
+	var output = ""
+	for (var i = 0; i < 19; i++) {
+			for (var j = 0; j < 19; j++) {
+					output = output + document.getElementById("pixel-" + i + "-" + j).getAttribute("value");
+					if(!(i==18 && j==18)){
+							output = output + ",";
+					}
+					
+			}
+	}
+	console.log(output)
+	document.getElementById("output").innerHTML = output;
 }
 function showFrameSize() {
 	var t;
@@ -466,35 +175,35 @@ function fixDragBtn() {
 	var textareawidth, leftpadding, dragleft, containertop, buttonwidth
 	var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
 	if (stack != " horizontal") {
-		document.getElementById("dragbar").style.width = "5px";		
-		textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
-		leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
-		buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
-		textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
-		dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
-		document.getElementById("dragbar").style.top = containertop + "px";
-		document.getElementById("dragbar").style.left = dragleft + "px";
-		document.getElementById("dragbar").style.height = textareaheight;
-		document.getElementById("dragbar").style.cursor = "col-resize";
-		
+	document.getElementById("dragbar").style.width = "5px";	
+	textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
+	leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
+	buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
+	textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
+	dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
+	document.getElementById("dragbar").style.top = containertop + "px";
+	document.getElementById("dragbar").style.left = dragleft + "px";
+	document.getElementById("dragbar").style.height = textareaheight;
+	document.getElementById("dragbar").style.cursor = "col-resize";
+	
 	} else {
-		document.getElementById("dragbar").style.height = "5px";
-		if (window.getComputedStyle) {
-				textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("height");
-				textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("width");
-				leftpadding = window.getComputedStyle(document.getElementById("textarea"),null).getPropertyValue("padding-top");
-				buttonwidth = window.getComputedStyle(document.getElementById("dragbar"),null).getPropertyValue("height");
-		} else {
-				dragleft = document.getElementById("textareawrapper").currentStyle["width"];
-		}
-		textareawidth = Number(textareawidth.replace("px", ""));
-		leftpadding = Number(leftpadding .replace("px", ""));
-		buttonwidth = Number(buttonwidth .replace("px", ""));
-		dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
-		document.getElementById("dragbar").style.top = dragleft + "px";
-		document.getElementById("dragbar").style.left = "5px";
-		document.getElementById("dragbar").style.width = textareaheight;
-		document.getElementById("dragbar").style.cursor = "row-resize";				
+	document.getElementById("dragbar").style.height = "5px";
+	if (window.getComputedStyle) {
+		textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("height");
+		textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"),null).getPropertyValue("width");
+		leftpadding = window.getComputedStyle(document.getElementById("textarea"),null).getPropertyValue("padding-top");
+		buttonwidth = window.getComputedStyle(document.getElementById("dragbar"),null).getPropertyValue("height");
+	} else {
+		dragleft = document.getElementById("textareawrapper").currentStyle["width"];
+	}
+	textareawidth = Number(textareawidth.replace("px", ""));
+	leftpadding = Number(leftpadding .replace("px", ""));
+	buttonwidth = Number(buttonwidth .replace("px", ""));
+	dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
+	document.getElementById("dragbar").style.top = dragleft + "px";
+	document.getElementById("dragbar").style.left = "5px";
+	document.getElementById("dragbar").style.width = textareaheight;
+	document.getElementById("dragbar").style.cursor = "row-resize";		
 	}
 }
 function dragstart(e) {
@@ -505,36 +214,36 @@ function dragstart(e) {
 function dragmove(e) {
 	if (dragging) 
 	{
-		document.getElementById("shield").style.display = "block";
-		if (stack != " horizontal") {
-			var percentage = (e.pageX / window.innerWidth) * 100;
-			if (percentage > 5 && percentage < 98) {
-				var mainPercentage = 100-percentage;
-				document.getElementById("textareacontainer").style.width = percentage + "%";
-				document.getElementById("iframecontainer").style.width = mainPercentage + "%";
-				fixDragBtn();
-			}
-		} else {
-			var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
-			var percentage = ((e.pageY - containertop + 20) / (window.innerHeight - containertop + 20)) * 100;
-			if (percentage > 5 && percentage < 98) {
-				var mainPercentage = 100-percentage;
-				document.getElementById("textareacontainer").style.height = percentage + "%";
-				document.getElementById("iframecontainer").style.height = mainPercentage + "%";
-				fixDragBtn();
-			}
+	document.getElementById("shield").style.display = "block";
+	if (stack != " horizontal") {
+		var percentage = (e.pageX / window.innerWidth) * 100;
+		if (percentage > 5 && percentage < 98) {
+		var mainPercentage = 100-percentage;
+		document.getElementById("textareacontainer").style.width = percentage + "%";
+		document.getElementById("iframecontainer").style.width = mainPercentage + "%";
+		fixDragBtn();
 		}
-		showFrameSize();		
+	} else {
+		var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
+		var percentage = ((e.pageY - containertop + 20) / (window.innerHeight - containertop + 20)) * 100;
+		if (percentage > 5 && percentage < 98) {
+		var mainPercentage = 100-percentage;
+		document.getElementById("textareacontainer").style.height = percentage + "%";
+		document.getElementById("iframecontainer").style.height = mainPercentage + "%";
+		fixDragBtn();
+		}
+	}
+	showFrameSize();	
 	}
 }
 function dragend() {
 	document.getElementById("shield").style.display = "none";
 	dragging = false;
 	if (window.editor) {
-		window.editor.refresh();
+	window.editor.refresh();
 	}
 }
-if (window.addEventListener) {							
+if (window.addEventListener) {				
 	document.getElementById("dragbar").addEventListener("mousedown", function(e) {dragstart(e);});
 	document.getElementById("dragbar").addEventListener("touchstart", function(e) {dragstart(e);});
 	window.addEventListener("mousemove", function(e) {dragmove(e);});
@@ -546,11 +255,11 @@ if (window.addEventListener) {
 }
 
 function w3_getStyleValue(elmnt,style) {
-		if (window.getComputedStyle) {
-				return window.getComputedStyle(elmnt,null).getPropertyValue(style);
-		} else {
-				return elmnt.currentStyle[style];
-		}
+	if (window.getComputedStyle) {
+		return window.getComputedStyle(elmnt,null).getPropertyValue(style);
+	} else {
+		return elmnt.currentStyle[style];
+	}
 }
 
 function openMenu() {
@@ -558,42 +267,60 @@ function openMenu() {
 	var y = document.getElementById("menuOverlay");
 	var z = document.getElementById("menuButton");
 	if (z.className.indexOf("w3-text-gray") == -1) {
-			z.className += " w3-text-gray";
+		z.className += " w3-text-gray";
 	} else { 
-			z.className = z.className.replace(" w3-text-gray", "");
+		z.className = z.className.replace(" w3-text-gray", "");
 	}
 	if (z.className.indexOf("w3-gray") == -1) {
-			z.className += " w3-gray";
+		z.className += " w3-gray";
 	} else { 
-			z.className = z.className.replace(" w3-gray", "");
+		z.className = z.className.replace(" w3-gray", "");
 	}
 	if (x.className.indexOf("w3-show") == -1) {
-			x.className += " w3-show";
+		x.className += " w3-show";
 	} else { 
-			x.className = x.className.replace(" w3-show", "");
+		x.className = x.className.replace(" w3-show", "");
 	}
 	if (y.className.indexOf("w3-show") == -1) {
-			y.className += " w3-show";
+		y.className += " w3-show";
 	} else { 
-			y.className = y.className.replace(" w3-show", "");
+		y.className = y.className.replace(" w3-show", "");
 	}
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-		if (event.target == document.getElementById("saveModal")) {
-				hideAndResetModal();
+	if (event.target == document.getElementById("menuOverlay")) {
+		openMenu();
+	}
+}
+
+function toggleCode() {
+	if (!document.getElementsByClassName("repo loaded")[0]) {
+		$$('#textareawrapper').repo({ user: 'tobnap', name: 'DIY-Neural-Network-Evaluate', branch: 'master' });
+	}
+	
+	var x = document.getElementsByClassName("hide");
+	Array.prototype.forEach.call(x, function(e){
+		if (e.style.display === "none") {
+			e.style.removeProperty("display");
+			fixDragBtn();
+		} else {
+			e.style.display = "none";
 		}
-		if (event.target == document.getElementById("driveSaveModal")) {
-				resetDriveSaveModal();
-		}
-		if (event.target == document.getElementById("driveLoadModal")) {
-				resetDriveLoadModal();
-		}
-		if (event.target == document.getElementById("menuOverlay")) {
-			openMenu();
-		}
-		
+	});
+	
+	var y = document.getElementById("iframecontainer");
+	var z = document.getElementById("iframe");
+	if (y.style.width === "100%") {
+		y.style.removeProperty("width");
+		z.style.paddingLeft = "5px";
+	} else {
+		y.style.width = "100%";
+		z.style.removeProperty("padding-left");
+	}
+	showFrameSize();
+	fixDragBtn();
 }
 </script>
 
