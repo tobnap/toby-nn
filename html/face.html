@@ -21,8 +21,8 @@ $def with (imgur,drive)
 	<a href="javascript:void(0);" onclick="retheme()" title="Change Theme" class="w3-button w3-bar-item topnav-icons fa fa-adjust" style="font-size:28px;margin-top:-2px"></a>
 	<span class="w3-right w3-hide-medium w3-hide-small" style="padding:8px 8px 8px 8px;display:block"></span>
 	<span class="w3-right w3-hide-small" style="padding:8px 0;display:block;float:right;"><span id="framesize"></span></span>
-	<button onclick="toggleCode()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px">Show Code</button>
-	<button value="Refresh Page" onClick="window.location.reload()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px">Another One</button>
+	<button onclick="toggleCode()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px;margin:0 1;">Show Code</button>
+	<button value="Refresh Page" onClick="window.location.reload()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px;margin:0 1;">Another One</button>
 </div>
 
 </div>
@@ -55,7 +55,7 @@ $def with (imgur,drive)
 		<div id="iframe">
 			<div id="iframewrapper" style="margin: 0px auto; overflow: hidden; text-align: center;">
 				<div id="iframeResult">
-					<img class="face" align="middle" border="0" src="$imgur" onerror="this.src='$drive'" style="padding:10px;">
+					<img id="face" align="middle" border="0" src="$imgur" onerror="this.src='$drive'" style="padding:10px;max-width:100%;max-height:100%;">
 				</div>
 			</div>
 		</div>
@@ -63,9 +63,20 @@ $def with (imgur,drive)
 </div>
 <script src="static/js/main.js"></script>
 <script>
+if (window.addEventListener) {				
+	document.getElementById("dragbar").addEventListener("mousedown", function(e) {dragstart(e);});
+	document.getElementById("dragbar").addEventListener("touchstart", function(e) {dragstart(e);});
+	window.addEventListener("mousemove", function(e) {dragmove(e);});
+	window.addEventListener("touchmove", function(e) {dragmove(e);});
+	window.addEventListener("mouseup", dragend);
+	window.addEventListener("touchend", dragend);
+	window.addEventListener("load", fixDragBtn);
+	window.addEventListener("load", showFrameSize);
+}
+
 function toggleCode() {
 	if (!document.getElementsByClassName("repo loaded")[0]) {
-		$$('#textareawrapper').repo({ user: 'tobnap', name: 'DIY-Neural-Network-Evaluate', branch: 'master' });
+		$$('#textareawrapper').repo({ user: 'tobnap', name: 'stylegan', branch: 'master' });
 	}
 	
 	var x = document.getElementsByClassName("hide");

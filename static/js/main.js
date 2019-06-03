@@ -14,7 +14,7 @@ function browserResize() {
 				 
 		}
 		fixDragBtn();
-		showFrameSize();		
+		showFrameSize();
 }
 var fileID = "";
 var loadSave = false;
@@ -97,7 +97,7 @@ function dragstart(e) {
 	var main = document.getElementById("iframecontainer");
 }
 function dragmove(e) {
-	if (dragging) 
+	if (dragging)
 	{
 	document.getElementById("shield").style.display = "block";
 	if (stack != " horizontal") {
