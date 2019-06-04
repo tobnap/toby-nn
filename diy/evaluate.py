@@ -12,7 +12,7 @@ class evaluate:
         from web import form
         mydb = mysql.connector.connect(user=user, password=password, host=host, database=database)
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT `index`, name1, name2 FROM weights")
+        mycursor.execute("SELECT `index`, name1, name2 FROM weights ORDER BY name1 asc")
         names = mycursor.fetchall()
         mycursor.close()
         models = []

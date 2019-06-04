@@ -72,7 +72,7 @@ function retheme() {
 	<a href="javascript:void(0);" onclick="retheme()" title="Change Theme" class="w3-button w3-bar-item topnav-icons fa fa-adjust" style="font-size:28px;margin-top:-2px"></a>
 	<span class="w3-right w3-hide-medium w3-hide-small" style="padding:8px 8px 8px 8px;display:block"></span>
 	<span class="w3-right w3-hide-small" style="padding:8px 0;display:block;float:right;"><span id="framesize"></span></span>
-	<button onclick="toggleCode()" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px;margin:0 1;">Show Code</button>
+	<button onclick="toggleCode();gridResize();" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px;margin:0 1;">Show Code</button>
 </div>
 
 </div>
@@ -108,7 +108,6 @@ function retheme() {
 					<style>
 					#regForm {
 						background-color: #ffffff;
-						font-family: Raleway;
 						width: 100%;
 						text-align:center;
 						margin:0 auto;
@@ -137,7 +136,7 @@ function retheme() {
 						</div>
 						<div style="overflow:auto;">
 						<div style="float:right;">
-							<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+							<button type="button" id="nextBtn" onclick="nextPrev(1)" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" style="font-size:16px;">Next</button>
 						</div>
 						</div>
 					</form>
@@ -221,11 +220,12 @@ if (window.addEventListener) {
 	window.addEventListener("touchend", dragend);
 	window.addEventListener("load", fixDragBtn);
 	window.addEventListener("load", showFrameSize);
+	window.addEventListener("load", gridResize);
 }
 
 function toggleCode() {
 	if (!document.getElementsByClassName("repo loaded")[0]) {
-		$$('#textareawrapper').repo({ user: 'tobnap', name: 'DIY-Neural-Network-Train', branch: 'master' });
+		$$('#textareawrapper').repo({ user: 'tobnap', name: 'DIY-Neural-Network-Evaluate', branch: 'master' });
 	}
 	
 	var x = document.getElementsByClassName("hide");
@@ -249,6 +249,59 @@ function toggleCode() {
 	}
 	showFrameSize();
 	fixDragBtn();
+}
+
+function gridResize () {
+	width = Number(w3_getStyleValue(document.getElementById("iframeResult"), "width").replace("px", "")).toFixed();
+	height = Number(w3_getStyleValue(document.getElementById("iframeResult"), "height").replace("px", "")).toFixed();
+	pixel = document.getElementsByClassName("pixel");
+	
+	if ((width/19) > (height/19)) {
+		Array.prototype.forEach.call(pixel, function(e){
+			e.style.height = (height/19-10);
+			e.style.width = (height/19-10);
+		});
+
+	}
+	else if ((width/19) < (height/19)) {
+		Array.prototype.forEach.call(pixel, function(e){
+			e.style.height = (width/19-10);
+			e.style.width = (width/19-10);
+		});
+	}
+}
+
+if (window.addEventListener) {							
+		window.addEventListener("resize", gridResize);
+} else if (window.attachEvent) {								 
+		window.attachEvent("onresize", gridResize);
+}
+
+function dragmove(e) {
+	if (dragging)
+	{
+	document.getElementById("shield").style.display = "block";
+	if (stack != " horizontal") {
+		var percentage = (e.pageX / window.innerWidth) * 100;
+		if (percentage > 5 && percentage < 98) {
+		var mainPercentage = 100-percentage;
+		document.getElementById("textareacontainer").style.width = percentage + "%";
+		document.getElementById("iframecontainer").style.width = mainPercentage + "%";
+		fixDragBtn();
+		}
+	} else {
+		var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
+		var percentage = ((e.pageY - containertop + 20) / (window.innerHeight - containertop + 20)) * 100;
+		if (percentage > 5 && percentage < 98) {
+		var mainPercentage = 100-percentage;
+		document.getElementById("textareacontainer").style.height = percentage + "%";
+		document.getElementById("iframecontainer").style.height = mainPercentage + "%";
+		fixDragBtn();
+		}
+	}
+	showFrameSize();
+	gridResize();
+	}
 }
 </script>
 </body>
